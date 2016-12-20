@@ -1,0 +1,19 @@
+    <div class="col-sm-10" style="">
+    	<h2 class="text-center">Login</h2>
+    	<h3>Not registered yet? <a href="/#/login">Register here</a></h3>
+    	<div class="alert alert-danger" ng-show="formError">{{formError}}</div>
+    	<div class="well">
+	    	<form class="form-horizontal" ng-submit="onSubmit()">
+		        <div class="form-group">
+		            <label><b>Email</b></label>
+		            <input type="email" class="form-control" ng-model="credentials.email"   name="email">
+
+		            <label><b>Password</b></label>
+		            <input type="password" class="form-control" ng-model="credentials.password"  name="psw">
+		            
+		            <button type="submit" class="btn btn-primary">Login</button>
+		            <span style="float: right;padding-top: 16px;">Forgot <a href="">password?</a></span>
+		        </div>
+	    	</form>
+    	</div>
+    </div>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="productFinder">
+<head>
+  
+  <title>Product Finder</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--scrolltop plugin-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+  <script src="javascripts/page.js"></script>
+  
+
+  <!--Adding angular js scripts -->
+  <script data-require="angular.js@*" data-semver="1.3.15" src="https://code.angularjs.org/1.3.15/angular.js"></script>
+  <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+  <script src="/lib/angular-route.min.js"></script><!--include route lib file-->
+  
+  <script src="ng-file-upload-shim(.min).js"></script> <!-- for no html5 browsers support -->
+  <script src="ng-file-upload(.min).js"></script>
+  <!--angularjs ui library js files -->
+ 
+  <script src="/app.js"></script>
+
+  <script src="/common/directives/navigation/navCtrl.js"></script>
+  <script src="/common/directives/navigation/nav.directive.js"></script>
+  <script src="/productList/homeCtrl.js"></script><!--include home ctrl js file-->
+  <script src="/productDetail/detailsCtrl.js"></script>
+  <script src="/productList/categoryCtrl.js"></script>
+  <script src="/productList/searchCtrl.js"></script>
+  <script src="/login/loginCtrl.js"></script>
+  <script src="/register/registerCtrl.js"></script>
+  <script src="/store/storeDetail.js"></script>
+  <script src="/post/postproduct.js"></script>
+  <script src="/about/aboutCtrl.js"></script>
+
+  <script src="/common/services/dataService.js"></script>
+  <script src="/common/services/authentication.service.js"></script>
+  <script src="/common/services/locationService.js"></script>
+  <!--socket io-->
+  <script src="/io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- google map -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzwiJZXDlrg2qWL1pNf4cSnA-DQ7t0yBU">
+    </script>
+  
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<navigation></navigation> <!-- get directives from app_client/common-->
+
+<div class="well" style="margin-bottom:0px;border-bottom:1px solid gray" >
+
+    <div class="text-center" >
+
+        <form class="form-inline" style="margin-top:40px">
+          <input id="search" ng-model="search" type="text" name="search" class="form-control" size="50"  placeholder="&#xf002;    Search here..." style="height:50px;border-radius:20px;border:2px solid black;width:40%" autocomplete="off">
+        </form>
+
+    </div>
+</div>
+
+<div id="products" class="container"> <!--container starts-->
+    <div class="row" style="">
+        <!--Categories rows-->
+        <div class="col-sm-2" style="border-right:1px solid gray;margin-left:0px">
+            <h3 class="text-center" style="color:#8A3F3C">Categories</h3>
+            <hr style="border:1px solid gray">
+            <div id="side-bar" style=";padding:20px 0 0 0px">
+                <a href="/#/product/category/phone"><h4>Phones & GPS</h4></a>
+                <a href="/#/product/category/laptop"><h4>Computers & Laptops</h4></a>
+                <a href="/#/product/category/audio"><h4>Audio & Video</h4></a>
+                <a href="/#/product/category/camera"><h4>Cameras & Films</h4></a>
+                <a href="/#/product/category/game"><h4>Games</h4></a>
+                <a href="/#/product/category/sports"><h4>Sports & Outdoors</h4></a>
+                <a href="/#/product/category/dailyDeals"><h3 style="color:red">Daily Deals</h3></a>
+            </div>
+        </div> 
+
+        <div ng-view > 
+          
+        </div>
+    </div>
+
+</div>
+<a href="" id="chat" class="btn btn-info btn-lg" style="position:fixed;bottom:0;margin-bottom:20px">
+    <span class="glyphicon glyphicon-comment"></span> Chat
+</a>
+<div id= "footer" class="text-center" style="background-color:black;">
+  
+  <h1> &copy; Product Finder Team </h1>
+</div>
+<div id="chat-box" class='container' style="display:none">
+<!--     <div id="user-box">
+        <h3 style="padding:10px">Online Users </h3>
+        <ul id="user">
+          <li> <a href="">Hari </a></li>
+          <li> <a href="">Sari </a></li>
+          <li> <a href="">shura </a> </li>
+        </ul>
+    </div> -->
+    <div id="nouser-box">
+      <div id="chat-header" style="padding:20px 20px 1px 20px">
+          <h4 style="display:inline;color:white">Chat</h4>
+          <button style="display:inline;color:white" type="button" class="close" id="chat-close">&times;</button>
+      </div>
+      
+
+      <div id="chat-content" style="color:black">
+              
+              <!--messages comes here-->
+          
+      </div>
+      <form id="chat-form" role="form" style="position:fixed;bottom:0">
+              <div class="form-group">
+                  <input type="text" class="form-control" id="text" autocomplete="off" style="display:inline;border:1px solid black">
+              </div>
+              
+      </form>
+  </div>
+
+</div>
+
+</body>
+</html>
+
+
+
+

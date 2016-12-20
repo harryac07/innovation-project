@@ -1,0 +1,127 @@
+
+<div class="container-fluid col-sm-10" id="productInfo">
+	<div id="wait-detail">
+		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:50%;line-height: 350px;height: 350px;"></i>
+	</div>
+	<div id="detail-body"><!-- for loader to run -->
+		<div class="row">
+			<div class="col-sm-6 col-xs-12" style="display:inline">
+				<a href="" style="position:absolute;z-index:5;right:20px">
+		          <span id="productShare" style="font-size:24px" class="glyphicon glyphicon-share"></span>
+		        </a>
+				<img src="{{data.product.image}}" height="400px" width="100%">
+			</div>
+			<div class="col-sm-4 col-xs-12">
+				<h2> <span style="color:black">Category:</span><span style="color:#8A3F3C"> {{data.product.category }} </span> </h2>
+				<h4> <span style="color:black">product:</span> {{data.product.name }} </h4>
+				<h4> <span style="color:black">manufactured:</span> {{data.product.manufactured }} </h4>
+				<h4> <span style="color:black">expiry:</span> {{data.product.expiry }} </h4>
+				<h4 style="color:black">Store rating:
+					<span class="glyphicon glyphicon-star{{ data.product.store[0].rating<1 ? '-empty' : ''}}" style="color:#c63939"></span>
+					<span class="glyphicon glyphicon-star{{ data.product.store[0].rating<2 ? '-empty' : ''}}" style="color:#c63939"></span>
+					<span class="glyphicon glyphicon-star{{ data.product.store[0].rating<3 ? '-empty' : ''}}" style="color:#c63939"></span>
+					<span class="glyphicon glyphicon-star{{ data.product.store[0].rating<4 ? '-empty' : ''}}" style="color:#c63939"></span>
+					<span class="glyphicon glyphicon-star{{ data.product.store[0].rating<5 ? '-empty' : ''}}" style="color:#c63939"></span>
+				</h4>
+		        <br>
+		        <p><b> {{data.product.varient[0].sizeDetail[0].detail }} </b> </p>
+
+			</div>
+			<div class="col-sm-2 col-xs-12">
+				<a href="#" class="btn btn-info btn-lg">
+	         		<span class="glyphicon glyphicon-shopping-cart"></span> Shop Now
+	        	</a>
+	        	<h3 style="color:red">€ {{data.product.varient[0].sizeDetail[0].price }} </h3>
+	        	<br>
+	        	<h4> <span style="color:black">Store:</span> {{data.product.store[0].name }}, {{ data.product.store[0].address }} </h4>
+	        	<h4> <span id="distance">Store: {{distance}} KM</span> </h4>
+	        	<button class="btn"><a style=";color:black;font-weight:bold;text-decoration:none" href="/#/store/{{data.product.store[0]._id}}">Store Details</a></button>
+	        	<h5 style="color:green"> <span style="color:green">Available :</span> {{ data.product.varient[0].sizeDetail[0].available }} </h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12">
+				<p id="lat" style="display:none">{{ data.product.store[0].coords[1] }}</p>
+				<p id="lon" style="display:none">{{ data.product.store[0].coords[0] }}</p>
+				<h2><span style="color:black">Terms & Conditions:</span> <span id="test"></span></h2>
+
+				
+			</div>
+			<div class="review col-sm-12 col-xs-12">
+			  <button type="button" ng-show="isLoggedIn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#reviewModel">Add Review</button>
+			  <button type="button" ng-hide="isLoggedIn" class="btn btn-info btn-lg"><a style="text-decoration: none" href="/#/login">Login to add review</a></button>
+			  <hr>
+			  <div id="review-box">
+			  	<h3>Reviews for {{data.product.name}}</h3>
+			  	<h3 style="display:inline-block">({{actual}})
+			  		<span class="glyphicon glyphicon-star{{ average<1 ? '-empty' : ''}}" style="color:#c63939;padding-left:10px;"></span>
+					<span class="glyphicon glyphicon-star{{ average<2 ? '-empty' : ''}}" style="color:#c63939"></span>
+					<span class="glyphicon glyphicon-star{{ average<3 ? '-empty' : ''}}" style="color:#c63939"></span>
+					<span class="glyphicon glyphicon-star{{ average<4 ? '-empty' : ''}}" style="color:#c63939"></span>
+					<span class="glyphicon glyphicon-star{{ average<5 ? '-empty' : ''}}" style="color:#c63939;padding-right:10px"></span>
+				</h3>
+				<span style="color:black;display:inline-block">{{limit}} Reviews</span>
+				<!-- reviewbox comes here-->
+			  	<div ng-repeat="review in data.product.review| orderBy: '-createdOn'| limitTo: count">
+			  		<div class="well" id="reviews">
+			  			<p style="display:inline-block;font-size:20px;color:black;font-weight:bold">{{review.author}}</p>
+				  		<div id="rating" style="display:inline-block;padding-left:20px">
+					  		<span class="glyphicon glyphicon-star{{ review.rating<1 ? '-empty' : ''}}" style="color:#c63939"></span>
+							<span class="glyphicon glyphicon-star{{ review.rating<2 ? '-empty' : ''}}" style="color:#c63939"></span>
+							<span class="glyphicon glyphicon-star{{ review.rating<3 ? '-empty' : ''}}" style="color:#c63939"></span>
+							<span class="glyphicon glyphicon-star{{ review.rating<4 ? '-empty' : ''}}" style="color:#c63939"></span>
+							<span class="glyphicon glyphicon-star{{ review.rating<5 ? '-empty' : ''}}" style="color:#c63939"></span>
+						</div>
+						<p style="display:inline-block;float:right">{{review.createdOn|date : "dd.MM.yy" }}</p>
+						<br>
+						<h4 style="">{{review.reviewText}}</h4>
+
+					</div>
+			  	</div>
+			  	<a id="moreReview" ng-click="count = limit" ng-init="count=4"  type="button">More Review...</a>
+
+			  </div>
+			</div>
+			  <!-- Modal -->
+			  <div class="modal fade" id="reviewModel" role="dialog" style="margin-top:40px">
+			    	<div class="modal-dialog">
+		   			 <!-- Modal content-->
+				      	<div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" style="color:#fff" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">Add Review</h4>
+					          <p>Product: {{data.product.name }}</p>
+					        </div>
+					        <div class="modal-body" ng-conroller="productDetailCtrl()">
+					        	<div role="alert" ng-show="formError" class="alert alert-danger">{{formError }}</div>
+					            <form class="form-horizontal"name="addReview" ng-submit="onSubmit()">
+					            	<!-- Name will come from loggedin user-->
+						            <div class="form-group">
+						                <label for="rating"><span class="control-label"></span> Rating</label>
+						                <select name="rating" ng-model="formData.rating" class="form-control" id="sel1">
+									        <option>1</option>
+									        <option>2</option>
+									        <option>3</option>
+									        <option>4</option>
+									        <option>5</option>
+									    </select>
+						            </div>
+						            <div class="form-group">
+						              <label for="review"><span class="control-label"></span> Review</label>
+						              <textarea class="form-control" name="reviewText" ng-model="formData.reviewText" rows="5" id="comment"></textarea>
+						            </div>
+						            <button class="btn btn-primary" type="submit">Submit</button>
+
+							    </form>
+					        </div>
+					        <div class="modal-footer">
+
+					           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					        </div>
+				      	</div>
+			      
+			    	</div>
+			  </div> <!--modal ends here-->
+		</div>
+	</div>
+</div>

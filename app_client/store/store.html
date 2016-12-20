@@ -1,0 +1,42 @@
+<div id="store-detail" class="col-sm-10 col-xs-12" style=";padding-top:20px;">
+	<button ng-click="go_back()" class="btn btn-default"><a style="text-decoration:none"href=''><i class="fa fa-arrow-left" aria-hidden="true"></i> back</a></button>
+	<div class="row">
+		<div class="col-sm-5 cols-xs-12">
+			<h2 style="color:#632927;font-weight:bold">Store Details </h2>
+		    <h3 style="display:inline">{{data.store.name}}</h3>
+		    <h4 style=";display:inline;padding-left:20px"> {{data.store.address}}</h4>
+	    	<h4 style="color:black">Store rating:
+				<span class="glyphicon glyphicon-star{{ data.store.rating<1 ? '-empty' : ''}}" style="color:#c63939"></span>
+				<span class="glyphicon glyphicon-star{{ data.store.rating<2 ? '-empty' : ''}}" style="color:#c63939"></span>
+				<span class="glyphicon glyphicon-star{{ data.store.rating<3 ? '-empty' : ''}}" style="color:#c63939"></span>
+				<span class="glyphicon glyphicon-star{{ data.store.rating<4 ? '-empty' : ''}}" style="color:#c63939"></span>
+				<span class="glyphicon glyphicon-star{{ data.store.rating<5 ? '-empty' : ''}}" style="color:#c63939"></span>
+			</h4>
+		    <hr style="border-top: 2px solid #ccc; padding:0;margin:0 0 10px 0">
+		    <p>Opening-Days: Weekdays(Mon-Fri) <br>Opening: {{data.store.openingTime[0].opening}}<br>Closing: {{data.store.openingTime[0].closing}}</p>
+		    <p>Opening-days: Weekends(Sat-Sun) <br>Opening: {{data.store.openingTime[0].opening}}<br>Closing: {{data.store.openingTime[0].closing}}</p>
+		    <hr style="border-top: 2px solid #ccc; padding:0;margin:0 0 10px 0">
+		    <h4>Customer Service(<i class="fa fa-phone" aria-hidden="true"></i>): {{data.store.phone}}</h4>
+		    <h4>Visiting address: </h4>
+		    <h4 style="color:gray">{{data.store.address}}</h4>
+		    <div style="border:1px solid gray;color:red;font-size:18px;font-weight:bold;min-height:70px">
+			    <p class="text-center"><span id="distance"></span></p>
+			    <p class="text-center"><span id="time"></span></p>
+			</div>
+		    
+		</div>
+		<div class="col-sm-7 cols-xs-12">
+			<div id="floating-panel">
+			    <b>Mode of Travel: </b>
+			    <select id="mode">
+			      <option value="DRIVING">Driving</option>
+			      <option value="WALKING">Walking</option>
+			      <option value="BICYCLING">Bicycling</option>
+			      <option value="TRANSIT">Transit</option>
+			    </select>
+		    </div>
+			<div id="map" ng-init="mapinit()"></div>
+		</div>
+	</div>
+    
+</div>

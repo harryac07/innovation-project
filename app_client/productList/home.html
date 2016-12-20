@@ -1,0 +1,53 @@
+
+	<!--Products list-->
+
+<div id="products" class="col-sm-10 col-xs-12" style=";padding-top:20px;">
+	<div id="wait">
+		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:50%;line-height: 350px;height: 350px;"></i>
+	</div>
+	<div id="show-products">
+		<div class="dropdown" style="display:inline;color:black">
+		    <button  class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort by: {{sortTitle}}
+		    <span class="caret"></span></button>
+		    <ul class="dropdown-menu" id="sort-dropdown">
+		        <li><a href="" ng-init="sortBy='name'; sortTitle='A-Z'" ng-click="sortBy='name'">A-Z/a-z</a></li>
+		        <li><a href=""  ng-click="sortBy='-name'; sortTitle='Z-A'">Z-A/z-a</a></li>
+		        <li><a href=""  ng-click="sortBy='varient[0].sizeDetail[0].price'; sortTitle='Price ASC'">Min Price</a></li>
+		        <li><a href="" ng-click="sortBy='-varient[0].sizeDetail[0].price' ; sortTitle='Price DESC'">Max Price</a></li>
+		        <li><a href="" ng-click="sortBy='-createdOn' ; sortTitle='Recent'">Recently Added</a></li>
+		        <li><a href="" ng-click="sortBy='dis' ; sortTitle='distance'">Best Location</a></li>
+		    </ul>
+		</div>
+		<div style="display:inline;position: absolute; right:0; padding-right:20px;color:black">
+			<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
+	        	First
+	    	</button>
+	    	<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+	        	Previous
+	    	</button>
+	    		<button class="btn btn-default">{{currentPage+1}}/{{numberOfPages()}}</button>
+		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
+		        Next
+		    </button>
+		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
+	        	Last
+	    	</button>
+		</div>
+		
+		<div class="row" style="display: flex;flex-wrap: wrap;" id="test-product">
+		        <div id="product-div" class="jumbotron col-sm-4 col-md-4 col-xs-12 text-center" style=";border:8px solid #fff;padding:10px;line-height:0.9em;overflow: hidden;display: flex;flex-direction: column;" ng-init="distance=disCalc(product.store[0].coords[0],product.store[0].coords[1],product)" ng-repeat="product in filteredItems| filter:search| limitTo:numPerPage| orderBy : sortBy" >
+
+		            <a id="detail-link" href="/#/product/{{product._id}}"><img src ="{{product.image}}" height="180px" width="100%"></a>
+		            <h3 style="color:black">{{product.name}}</h3>
+		            <p>{{product.store[0].name}}</p>
+		            <p>€ {{ product.varient[0].sizeDetail[0].price }}</p>
+		            <p style="color:black;font-size:17px"> Store distance: <span style="color:red">{{distance}} KM</span></p>
+		            </p>
+		        </div>
+		    
+		</div>
+	</div>
+</div>
+
+
+
