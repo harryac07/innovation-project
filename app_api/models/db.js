@@ -4,7 +4,10 @@ require('./stores');//requiring stores collection
 require('./users');//requiring users collection
 
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/product-finder';
+//var dbURI = 'mongodb://localhost/product-finder';
+var dbURI = process.env.MONGOLAB_URI;
+
+
 
 // if NODE_ENV=production nodemon is used for starting node to use heroku mongolab
 if (process.env.NODE_ENV === 'production') {
