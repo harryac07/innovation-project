@@ -5,7 +5,7 @@ require('./users');//requiring users collection
 
 var gracefulShutdown;
 //var dbURI = 'mongodb://localhost/product-finder';
-var dbURI = process.env.MONGOLAB_URI;
+var dbURI = 'mongodb://haria:saveearth@ds119508.mlab.com:19508/product-finder';
 
 
 
