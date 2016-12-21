@@ -17,6 +17,7 @@ function loginCtrl($scope, $location, $window, auth) { // service as parameter
 			return false;
 		} else {
 			/* Auth called*/
+			
 			auth
 				.login($scope.credentials)
 				.error(function(err) {

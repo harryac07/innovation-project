@@ -5,16 +5,7 @@ require('./users');//requiring users collection
 
 var gracefulShutdown;
 //var dbURI = 'mongodb://localhost/product-finder';
-var dbURI = 'mongodb://haria:saveearth@ds119508.mlab.com:19508/product-finder';
-
-
-
-// if NODE_ENV=production nodemon is used for starting node to use heroku mongolab
-if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGOLAB_URI;
-}
-
-
+var dbURI = process.env.DATABASE; // store in dotenv
 mongoose.connect(dbURI);
 
 mongoose.connection.on('connected',function(){

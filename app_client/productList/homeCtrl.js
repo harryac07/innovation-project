@@ -4,11 +4,11 @@ angular
 
 
 
-function homeCtrl($scope, $timeout, productData, locService) { // service as parameter
+function homeCtrl($scope,$location, $timeout, productData,auth, locService) { // service as parameter
 
 	$scope.lon2 = "";
 	$scope.lat2 = "";
-
+	
 	navigator.geolocation.getCurrentPosition(function(position) {
 		$scope.lon2 = position.coords.longitude;
 		$scope.lat2 = position.coords.latitude;

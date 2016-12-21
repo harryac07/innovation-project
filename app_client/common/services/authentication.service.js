@@ -3,7 +3,7 @@ angular
 	.service('auth', auth);
 
 
-function auth($http, $window) {
+function auth($http, $window,$location) {
 
 	var saveToken = function(token) {
 		$window.localStorage['user-token'] = token;
@@ -35,7 +35,7 @@ function auth($http, $window) {
 	};
 	register = function(user) {
 		return $http.post('/api/register', user).success(function(data) {
-			//saveToken(data.token);
+			// saveToken(data.token);
 		});
 	};
 

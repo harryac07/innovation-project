@@ -3,36 +3,14 @@ var cloudinary = require('cloudinary');
 
 var mongoose = require('mongoose');
 var product = mongoose.model('Product');
-// var User = mongoose.model('User');
+var User = mongoose.model('User');
+/* for nodemoailer login confirmation */
+var nodemailer = require('nodemailer');
 
 var sendJSONresponse = function(res, status, content) {
 	res.status(status);
 	res.json(content);
 };
-
-// var getAuthor=function(req,res,callback){
-// 	if(req.payload && req.payload.email){
-// 		User.findOne({email:req.payload.email})
-// 		.exec(function(err,user){
-// 			if(!user){
-// 				sendJSONresponse(res,404,{
-// 					"message":"User not Found"
-// 				});
-// 				return;
-// 			}else if(err){
-// 				console.log(err);
-// 				sendJSONresponse(res,401,err);
-// 				return;
-// 			}
-// 			callback(req,res,user.name); // passing uer's name in callback
-// 		});
-// 	}else{
-// 		sendJSONresponse(res,404,{
-// 			"message":"User not found"
-// 		});
-// 		return;
-// 	}
-// };
 
 /*POST products*/
 module.exports.productsCreate = function(req, res) {
@@ -76,8 +54,68 @@ module.exports.productsCreate = function(req, res) {
 		} else {
 			console.log(product);
 			sendJSONresponse(res, 201, product);
+			// get all the users to select emails for sending emails
+			User
+				.find()
+				.select('email -_id')
+				.exec(function(err, users) {
+					if (err) {
+						sendJSONresponse(res, 400, err);
+					} else if (!users) {
+						sendJSONresponse(res, 404, {
+							"message": "User not Found"
+						});
+					}
+
+					/* /* Notify user when product is updated in system */
+
+					var transporter = nodemailer.createTransport({
+						service: 'gmail',
+						auth: {
+							user: 'harryac007@gmail.com', // your email here
+							pass: process.env.EMAIL_SECRET // your password here
+						}
+					});
+					var maillist = [];
+					for (key in users) {
+						if (users.hasOwnProperty(key)) {
+							var value = users[key];
+							maillist.push(value['email']);
+							//do something with value;
+						}
+					}
+					console.log('mailist ' + maillist);
+					maillist.forEach(function(to, i, array) {
+						var text = "<p>Hello,<br><br>New products have been added to the proFinder app now. Here are basic product details.<br><br>Product name: " + req.body.name + "<br>Product Brand: " + req.body.brand + "<br>Product Details: " + req.body.detail + " <br><br><br>All of our products are valuable, you may miss the offers. For more informations, Please visit our site:<a href=''>Visit proFinder</a><br><br>Profinder Team</p>";
+						var mailOptions = {
+							from: 'harryac007@gmail.com', // sender address
+							subject: 'Welcome to ProFinder', // Subject line
+							html: text
+								// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+						};
+						mailOptions.to = to;
+
+						transporter.sendMail(mailOptions, function(err, info) {
+							if (err) {
+								console.log(err);
+								return;
+							} else if (!info) {
+								sendJSONresponse(res, 404, {
+									"message": "not found email."
+								});
+								return;
+							} else {
+								console.log('Message sent: ' + info);
+								//sendJSONresponse(res, 200, info);
+
+							}
+						});
+					});
+
+				});
 		}
 	});
+
 };
 
 /* GET list of products */

@@ -14,9 +14,13 @@ var userSchema = new mongoose.Schema({
 		unique: true,
 		required: true
 	},
-	admin:{
-		type:Boolean,
-		default:false
+	verified: {
+		type: Boolean,
+		default: false
+	},
+	admin: {
+		type: Boolean,
+		default: false
 	},
 	hash: String,
 	salt: String
@@ -39,13 +43,14 @@ userSchema.methods.generateJwt = function() {
 		_id: this._id,
 		email: this.email,
 		name: this.name,
-		admin:this.admin,
+		admin: this.admin,
+		verified:this.verified,
 		exp: parseInt(expiry.getTime() / 1000)
 	}, process.env.JWT_SECRET);
 };
 
 // Do setup production environment for heroku too: 
-	//heroku config:set JWT_SECRET=thisIsSecret
+//heroku config:set JWT_SECRET=thisIsSecret
 
 // we need to create a model using it
 var User = mongoose.model('User', userSchema);
