@@ -3,7 +3,7 @@ angular
 	.service('auth', auth);
 
 
-function auth($http, $window,$location) {
+function auth($http, $window, $location) {
 
 	var saveToken = function(token) {
 		$window.localStorage['user-token'] = token;
@@ -29,7 +29,8 @@ function auth($http, $window,$location) {
 			return {
 				email: payload.email,
 				name: payload.name,
-				admin: payload.admin
+				admin: payload.admin,
+				verified:payload.verified
 			};
 		}
 	};
@@ -37,6 +38,9 @@ function auth($http, $window,$location) {
 		return $http.post('/api/register', user).success(function(data) {
 			// saveToken(data.token);
 		});
+	};
+	var verify = function(token) {
+		return $http.get('/api/verify/' + token);
 	};
 
 	login = function(user) {
@@ -55,6 +59,7 @@ function auth($http, $window,$location) {
 		getToken: getToken,
 		isLoggedIn: isLoggedIn,
 		register: register,
+		verify: verify,
 		login: login,
 		logout: logout
 	};

@@ -24,6 +24,10 @@ function config($routeProvider) {
 			templateUrl: 'register/register.html',
 			controller: 'registerCtrl'
 		})
+		.when('/verify/:token', {
+			templateUrl: 'register/verify.html',
+			controller: 'registerCtrl'
+		})
 		.when('/login', {
 			templateUrl: 'login/login.html',
 			controller: 'loginCtrl'

@@ -22,6 +22,9 @@ var userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
+	verifyToken:{
+		type:String
+	},
 	hash: String,
 	salt: String
 });
@@ -44,6 +47,7 @@ userSchema.methods.generateJwt = function() {
 		email: this.email,
 		name: this.name,
 		admin: this.admin,
+		verifyToken:this.verifyToken,
 		verified:this.verified,
 		exp: parseInt(expiry.getTime() / 1000)
 	}, process.env.JWT_SECRET);

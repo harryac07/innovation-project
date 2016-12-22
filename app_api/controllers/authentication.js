@@ -4,8 +4,9 @@ var User = mongoose.model('User');
 /* for nodemoailer login confirmation */
 var nodemailer = require('nodemailer');
 var host;
-var randomToken;
 var mailOptions;
+
+
 var sendJSONresponse = function(res, status, content) {
 	res.status(status);
 	res.json(content);
@@ -20,9 +21,11 @@ module.exports.register = function(req, res) {
 		return;
 	}
 	var user = new User(); // create a new user instances
-	host=req.get('host');// get host
+	host = req.get('host'); // get host
 	user.name = req.body.name;
 	user.email = req.body.email;
+	user.verifyToken = user.generateJwt();
+	linkToken = user.verifyToken;
 	if (req.body.email === "harry_ac07@yahoo.com") {
 		user.admin = true;
 	}
@@ -35,63 +38,78 @@ module.exports.register = function(req, res) {
 			return;
 		} else {
 			token = user.generateJwt(); // Generate JWT using schema method and send it to browser
-			randomToken=token;
+
 			sendJSONresponse(res, 200, {
 				"token": token
 			});
-		}
-	});
-	/* When user is registered, greet him to welcome */
-	var transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-			user: 'harryac007@gmail.com', // your email here
-			pass: process.env.EMAIL_SECRET // your password here
-		}
-	});
-	var text = 'Hello '+req.body.name+ '\n\nWelcome to Profinder. Now you are permitted to grab everything from our app.\n\n' + 'Profinder Team';
 
-	//var text = 'Hello ' + req.body.name+',\n\n'+'Welcome to ProFinder. You can check all the products you want to buy and get more infos on it. \n\n\nProFinder Team.';
-	mailOptions = {
-		from: 'harryac007@gmail.com', // sender address
-		to: req.body.email, // list of receivers
-		subject: 'Welcome to ProFinder', // Subject line
-		text: text
-			// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-	};
-	transporter.sendMail(mailOptions, function(err, info) {
-		if (err) {
-			console.log(err);
-			return;
-		} else if (!info) {
-			sendJSONresponse(res, 404, {
-				"message": "not found email."
+			/* When user is registered, greet him to welcome */
+			var transporter = nodemailer.createTransport({
+				service: 'gmail',
+				auth: {
+					user: 'harryac007@gmail.com', // your email here
+					pass: process.env.EMAIL_SECRET // your password here
+				}
 			});
-			return;
-		} else {
-			console.log('Message sent: ' + info);
-			//sendJSONresponse(res, 200, info);
 
+			//var text1 = 'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n';
+
+			var message = 'Hello ' + req.body.name + ',\n\n' + 'Welcome to ProFinder. Please verify account and become our true customer. The verification link is right below, click it and you are all set.\n\n' +
+				'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n\nProFinder Team';
+			mailOptions = {
+				from: 'harryac007@gmail.com', // sender address
+				to: req.body.email, // list of receivers
+				subject: 'Welcome to ProFinder', // Subject line
+				text: message
+					// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+			};
+			transporter.sendMail(mailOptions, function(err, info) {
+				if (err) {
+					console.log(err);
+					return;
+				} else if (!info) {
+					sendJSONresponse(res, 404, {
+						"message": "not found email."
+					});
+					return;
+				} else {
+					console.log('Message sent: ' + info);
+					//sendJSONresponse(res, 200, info);
+
+				}
+			});
 		}
 	});
 
 }; /* register ends here */
 
 /* user verification */
-// module.exports.verify = function(req, res) {
-// 	if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) {
-// 		console.log("Domain is matched. Information is from Authentic email");
-// 		if (req.query.id == randomToken) {
-// 			console.log("email is verified");
-// 			res.end("<h1>Email " + mailOptions.to + " is been Successfully verified");
-// 		} else {
-// 			console.log("email is not verified");
-// 			res.end("<h1>Bad Request</h1>");
-// 		}
-// 	} else {
-// 		res.end("<h1>Request is from unknown source");
-// 	}
-// };
+module.exports.verify = function(req, res) {
+	User.findOne({
+			verifyToken: req.params.token
+		})
+		.exec(function(err, user) {
+			if (!user) {
+				sendJSONresponse(res, 404, {
+					"message": "User not found"
+				});
+
+			} else if (err) {
+				sendJSONresponse(res, 400, err);
+			} else {
+				console.log('valid token');
+				user.verified = true;
+				user.save(function(err, user) {
+					if (err) {
+						sendJSONresponse(res, 400, err);
+					} else {
+						sendJSONresponse(res, 200, user);
+					}
+				});
+			}
+		});
+
+};
 
 /* Login */
 module.exports.login = function(req, res) {
@@ -109,13 +127,15 @@ module.exports.login = function(req, res) {
 			return;
 		}
 
-		if (user) {
+		if (user && user.verified === true) {
 			token = user.generateJwt();
 			sendJSONresponse(res, 200, {
 				"token": token
 			});
+			console.log(' user is verified');
 		} else {
 			sendJSONresponse(res, 401, info);
+			console.log(' user not verified');
 		}
 
 	})(req, res); // make sure that req, res are available to the passport

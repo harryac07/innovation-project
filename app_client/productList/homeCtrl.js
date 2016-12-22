@@ -24,7 +24,7 @@ function homeCtrl($scope,$location, $timeout, productData,auth, locService) { //
 		//Sort: default is by name
 		$scope.sortBy = 'name';
 
-		$scope.filteredItems = [], $scope.currentPage = 0, $scope.numPerPage = 6, $scope.maxSize = 5;
+		$scope.filteredItems = [], $scope.currentPage = 0, $scope.numPerPage = 9, $scope.maxSize = 5;
 
 		/* list of products from server */
 		productData.productList()

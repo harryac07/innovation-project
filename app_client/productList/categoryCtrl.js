@@ -41,7 +41,7 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 		// 		$route.reload();
 		// 	}
 		// });
-		$scope.filteredItems = [], $scope.currentPage = 0, $scope.numPerPage = 7, $scope.maxSize = 5;
+		$scope.filteredItems = [], $scope.currentPage = 0, $scope.numPerPage = 9, $scope.maxSize = 5;
 		productData.productByCategory($scope.categoryName)
 			.success(function(data) {
 				// $scope.data = {
