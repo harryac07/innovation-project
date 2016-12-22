@@ -36,6 +36,7 @@ router.delete('/product/:productid', ctrlProducts.storesDeleteOne);
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 router.get('/verify/:token',ctrlAuth.verify);
+router.get('/forgotPwd/:token',ctrlAuth.forgotPwd);
 router.get('/users',ctrlAuth.getUsers);
 
 // /* Reviews */

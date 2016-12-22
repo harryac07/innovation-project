@@ -97,17 +97,69 @@ module.exports.verify = function(req, res) {
 			} else if (err) {
 				sendJSONresponse(res, 400, err);
 			} else {
-				console.log('valid token');
-				user.verified = true;
-				user.save(function(err, user) {
-					if (err) {
-						sendJSONresponse(res, 400, err);
-					} else {
-						sendJSONresponse(res, 200, user);
-					}
-				});
+				//if user already verified, no need to call api
+				if (user.verified === false) {
+
+					console.log('valid token');
+					user.verified = true;
+					user.save(function(err, user) {
+						if (err) {
+							sendJSONresponse(res, 400, err);
+						} else {
+							sendJSONresponse(res, 200, user);
+
+							//Send user notification that user is verified
+							var transporter = nodemailer.createTransport({
+								service: 'gmail',
+								auth: {
+									user: 'harryac007@gmail.com', // your email here
+									pass: process.env.EMAIL_SECRET // your password here
+								}
+							});
+
+							//var text1 = 'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n';
+
+							var message = 'Hello ' + user.name + ',\n\n' + 'Welcome to ProFinder.\n\nYour account has been successfully verified.\nYou have now a complete access to our features.\n\nWelcome!\n\n\nProFinder Team';
+							mailOptions = {
+								from: 'harryac007@gmail.com', // sender address
+								to: user.email, // list of receivers
+								subject: 'Email verification completed', // Subject line
+								text: message
+									// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+							};
+							transporter.sendMail(mailOptions, function(err, info) {
+								if (err) {
+									console.log(err);
+									return;
+								} else if (!info) {
+									sendJSONresponse(res, 404, {
+										"message": "not found email."
+									});
+									return;
+								} else {
+									console.log('Message sent: ' + info);
+									//sendJSONresponse(res, 200, info);
+
+								}
+							});
+
+
+						}
+					});
+				}else{
+					sendJSONresponse(res, 200,{
+						"message":"You are already verified"
+					});
+				}
 			}
 		});
+
+};
+
+/* Forgot password */
+
+module.exports.forgotPwd = function(req, res) {
+
 
 };
 
