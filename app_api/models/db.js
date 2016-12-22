@@ -6,6 +6,9 @@ require('./users');//requiring users collection
 var gracefulShutdown;
 //var dbURI = 'mongodb://localhost/product-finder';
 var dbURI = process.env.DATABASE; // store in dotenv
+if (process.env.NODE_ENV === 'production') {
+    dbURI = process.env.DATABASE;
+}
 mongoose.connect(dbURI);
 
 mongoose.connection.on('connected',function(){

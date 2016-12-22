@@ -1,4 +1,4 @@
-angular.module('productFinder', ['ngRoute', 'ui.bootstrap']); // routes for controller
+angular.module('productFinder', ['ngRoute']); // routes for controller
 
 function config($routeProvider) {
 	$routeProvider
