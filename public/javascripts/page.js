@@ -21,6 +21,9 @@ $(document).ready(function() {
 	$("#chat-close").click(function() {
 		$('#chat-box').hide();
 	});
+	    if (window.width() < 600) {
+            $('#pager button').addClass('btn-sm');
+        }
 
 
 

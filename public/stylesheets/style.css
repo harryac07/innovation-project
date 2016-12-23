@@ -13,7 +13,7 @@
       font-family: Montserrat, sans-serif;
   }*/
   .container-fluid {
-      padding: 40px 20px;
+      
       color:#8A3F3C;
   }
   .container{
@@ -139,6 +139,13 @@ color: black !important;
     .col-sm-10 {
         padding-left:50px;
     }
+    #search{
+      width: 40%;
+    }
+    #pager-bottom{
+      visibility: hidden;
+      display: none;
+    }
 }
 #chat-content{
   height: 250px;
@@ -174,13 +181,30 @@ color: black !important;
   color:#fff;
 }
 
-/* hide chat div on phones */
-@media screen and (max-width: 600px) {
-  #chat-div {
-    visibility: hidden;
-    display: none;
+@media only screen and (max-width: 600px) {
+  #search{
+    width: 100%;
   }
+  #chat{
+    display: none;
+    visibility: hidden;
+  }
+  .col-xs-12{
+    padding-left:20px;
+    padding-right: 20px;
+  }
+  #nav-dropdown li a{
+    width: 80%;
+    overflow: scroll;
+  }
+  #pager{
+    display: none;
+    visibility: hidden;
+  }
+
 }
+
+/* hide chat div*/
 
 
  

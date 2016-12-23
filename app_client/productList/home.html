@@ -18,7 +18,7 @@
 		        <li><a href="" ng-click="sortBy='dis' ; sortTitle='distance'">Best Location</a></li>
 		    </ul>
 		</div>
-		<div style="display:inline;position: absolute; right:0; padding-right:20px;color:black">
+		<div style="display:inline;position: absolute; right:0; padding-right:20px;color:black" id="pager">
 			<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
 	        	First
 	    	</button>
@@ -45,6 +45,21 @@
 		            </p>
 		        </div>
 		    
+		</div>
+		<div style="display:inline-block;position: absolute; right:0;bottom:2px; padding-right:20px;color:black" id="pager-bottom">
+			<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
+	        	First
+	    	</button>
+	    	<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+	        	Previous
+	    	</button>
+	    		<button class="btn btn-default">{{currentPage+1}}/{{numberOfPages()}}</button>
+		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
+		        Next
+		    </button>
+		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
+	        	Last
+	    	</button>
 		</div>
 	</div>
 </div>
