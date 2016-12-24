@@ -86,25 +86,6 @@ module.exports.register = function(req, res) {
 }; /* register ends here */
 
 
-/* Register  with facebook */
-module.exports.facebookRegister = function(req, res) {
-	passport.authenticate('facebook', {
-		scope: 'email'
-	});
-
-}; /* facebook register ends here */
-
-// handle the callback after facebook has authenticated the user
-
-/* verification  with facebook */
-module.exports.facebookCallback = function(req, res) {
-	passport.authenticate('facebook', {
-		successRedirect: '/profile',
-		failureRedirect: '/'
-	})
-
-}; /* facebook callback ends here */
-
 
 /* user verification */
 module.exports.verify = function(req, res) {
@@ -229,7 +210,7 @@ module.exports.facebookLogin = function(req, res) {
 
 		if (user && user.verified === true) {
 			token = user.generateJwt();
-			res.redirect('/#/facebook/'+token);
+			res.redirect('https://profinder1.herokuapp.com/#/facebook/'+token);
 			console.log(' token: ' + token);
 		} else {
 			sendJSONresponse(res, 401, info);
