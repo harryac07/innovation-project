@@ -30,7 +30,7 @@ function auth($http, $window, $location) {
 				email: payload.email,
 				name: payload.name,
 				admin: payload.admin,
-				verified:payload.verified
+				verified: payload.verified
 			};
 		}
 	};
@@ -45,12 +45,17 @@ function auth($http, $window, $location) {
 
 	login = function(user) {
 		return $http.post('/api/login', user).success(function(data) {
+
 			saveToken(data.token);
 		});
 	};
 
 	logout = function() {
 		$window.localStorage.removeItem('user-token');
+	};
+	facebookLogin = function(token) {// save the token when logged in with facebook
+		saveToken(token);
+
 	};
 
 	return {
@@ -61,7 +66,8 @@ function auth($http, $window, $location) {
 		register: register,
 		verify: verify,
 		login: login,
-		logout: logout
+		logout: logout,
+		facebookLogin: facebookLogin
 	};
 
 }

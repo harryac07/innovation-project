@@ -25,6 +25,8 @@ module.exports.register = function(req, res) {
 	user.name = req.body.name;
 	user.email = req.body.email;
 	user.verifyToken = user.generateJwt();
+	user.account = 'local';
+
 	linkToken = user.verifyToken;
 	if (req.body.email === "harry_ac07@yahoo.com") {
 		user.admin = true;
@@ -82,6 +84,27 @@ module.exports.register = function(req, res) {
 	});
 
 }; /* register ends here */
+
+
+/* Register  with facebook */
+module.exports.facebookRegister = function(req, res) {
+	passport.authenticate('facebook', {
+		scope: 'email'
+	});
+
+}; /* facebook register ends here */
+
+// handle the callback after facebook has authenticated the user
+
+/* verification  with facebook */
+module.exports.facebookCallback = function(req, res) {
+	passport.authenticate('facebook', {
+		successRedirect: '/profile',
+		failureRedirect: '/'
+	})
+
+}; /* facebook callback ends here */
+
 
 /* user verification */
 module.exports.verify = function(req, res) {
@@ -146,9 +169,9 @@ module.exports.verify = function(req, res) {
 
 						}
 					});
-				}else{
-					sendJSONresponse(res, 200,{
-						"message":"You are already verified"
+				} else {
+					sendJSONresponse(res, 200, {
+						"message": "You are already verified"
 					});
 				}
 			}
@@ -188,6 +211,28 @@ module.exports.login = function(req, res) {
 		} else {
 			sendJSONresponse(res, 401, info);
 			console.log(' user not verified');
+		}
+
+	})(req, res); // make sure that req, res are available to the passport
+
+};
+
+/* Login */
+module.exports.facebookLogin = function(req, res) {
+	
+	passport.authenticate('facebook', function(err, user, info) {
+		var token;
+		if (err) {
+			sendJSONresponse(res, 400, err);
+			return;
+		}
+
+		if (user && user.verified === true) {
+			token = user.generateJwt();
+			res.redirect('/#/facebook/'+token);
+			console.log(' token: ' + token);
+		} else {
+			sendJSONresponse(res, 401, info);
 		}
 
 	})(req, res); // make sure that req, res are available to the passport

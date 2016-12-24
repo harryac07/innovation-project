@@ -17,14 +17,14 @@ function loginCtrl($scope, $location, $window, auth) { // service as parameter
 			return false;
 		} else {
 			/* Auth called*/
-			
+
 			auth
 				.login($scope.credentials)
 				.error(function(err) {
 					$scope.formError = 'Please enter valid email or password.';
 				})
 				.then(function() {
-					$window.location.href='/';
+					$window.location.href = '/';
 				})
 		}
 	};

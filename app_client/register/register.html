@@ -1,20 +1,33 @@
     <div class="col-sm-10">
-    	<h3>ALready have an account? <a href="/#/login"><button class="btn btn-default">Login</button></a></h3>
-    	<div class="alert alert-danger" ng-show="formError">{{formError}}</div>
-    	<div id="warning"></div>
-    	<div class="well">
-	    	<form class="form-horizontal" ng-submit="onSubmit()">
-		        <div class="form-group">
-		        	<label><b>Name</b></label>
-		            <input type="text" class="form-control" ng-model="credentials.name"  name="name" required>
-		            <label><b>Email</b></label>
-		            <input type="email" class="form-control" ng-model="credentials.email"   name="email" required>
+    	<div id="register">
 
-		            <label><b>Password</b></label>
-		            <input type="password" class="form-control" ng-model="credentials.password"  name="psw" required>
-		            
-		            <button type="submit" class="btn btn-primary">Register</button>
-		        </div>
-	    	</form>
+    			<h3>Have an account? 
+					<a href="/#/login"class="btn btn-default" style="font-weight:bold">
+						<i style="padding-right:8px;color:#1E90FF" class="fa fa-sign-in" aria-hidden="true">
+						</i>Login
+					</a>
+				</h3>
+	    	<div class="alert alert-danger" ng-show="formError">{{formError}}</div>
+	    	<div id="warning"></div>
+
+	    	<div class="well">
+		    	<form class="form-horizontal" ng-submit="onSubmit()">
+			        <div class="form-group">
+			        	<label><b>Name</b></label>
+			            <input type="text" class="form-control" ng-model="credentials.name"  name="name" required>
+			            <label><b>Email</b></label>
+			            <input type="email" class="form-control" ng-model="credentials.email"   name="email" required>
+
+			            <label><b>Password</b></label>
+			            <input type="password" class="form-control" ng-model="credentials.password"  name="psw" required>
+			            
+			            <button type="submit" class="btn btn-primary">Register</button>
+			        </div>
+		    	</form>
+	    	</div>
+            <div class="well">
+        		<h4>Login with Facebok</h4>
+        		<a id="facebook-login" href='/api/auth/facebook' class="btn btn-primary"><span style="padding-right:5px" class="fa fa-facebook"></span>Login</a>
+        	</div>
     	</div>
     </div>

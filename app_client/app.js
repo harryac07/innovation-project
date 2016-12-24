@@ -32,6 +32,10 @@ function config($routeProvider) {
 			templateUrl: 'login/login.html',
 			controller: 'loginCtrl'
 		})
+		.when('/facebook/:token', {
+			templateUrl: 'social/facebook.html',
+			controller: 'facebookCtrl'
+		})
 		.when('/postproduct/:storeid', {
 			templateUrl: 'post/postproduct.html',
 			controller: 'postproductCtrl'

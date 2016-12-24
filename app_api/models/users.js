@@ -14,6 +14,10 @@ var userSchema = new mongoose.Schema({
 		unique: true,
 		required: true
 	},
+	account:{
+		type: String,
+		required: true
+	},
 	verified: {
 		type: Boolean,
 		default: false
@@ -25,7 +29,6 @@ var userSchema = new mongoose.Schema({
 	verifyToken: {
 		type: String
 	},
-	resetPwdExpire: String,
 	hash: String,
 	salt: String
 });
@@ -55,8 +58,6 @@ userSchema.methods.generateJwt = function() {
 	}, process.env.JWT_SECRET);
 };
 
-// Do setup production environment for heroku too: 
-//heroku config:set JWT_SECRET=thisIsSecret
 
 // we need to create a model using it
 var User = mongoose.model('User', userSchema);

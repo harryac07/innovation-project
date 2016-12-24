@@ -22,7 +22,8 @@ function registerCtrl($scope, $routeParams, $location, productData, auth) { // s
 				$scope.verifyStatus = "Please check your email and verify account";
 			});
 	}
-	
+
+
 	$scope.onSubmit = function() {
 		$scope.formError = "";
 		if (!$scope.credentials.name || !$scope.credentials.email || !$scope.credentials.password) {
@@ -36,8 +37,8 @@ function registerCtrl($scope, $routeParams, $location, productData, auth) { // s
 					$scope.formError = 'User already exists! Check email and verify.';
 				})
 				.then(function() {
-					$scope.formError="";
-					$('#warning').html("<div class='alert alert-info'><strong>Verification needed!</strong> Verification link has been sent to this email : ["+$scope.credentials.email +"]</div>");
+					$scope.formError = "";
+					$('#warning').html("<div class='alert alert-info'><strong>Verification needed!</strong> Verification link has been sent to this email : [" + $scope.credentials.email + "]</div>");
 					$('input').val('');
 				})
 		}
