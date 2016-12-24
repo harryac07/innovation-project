@@ -25,12 +25,12 @@ $(document).ready(function() {
 
 
 	/* Socket starts here */
-	var socket = io('https://profinder1.herokuapp.com');
+	var socket = io('http://localhost:3000');
 
 	// check if user log in and only perform chat
 	if (window.localStorage['user-token']) {
 		var user = JSON.parse(window.atob(window.localStorage['user-token'].split('.')[1])).name;
-		
+
 		$('#chat-form').submit(function() {
 			if ($('#text').val() != '' || null) {
 				socket.emit('chat message', $('#text').val());

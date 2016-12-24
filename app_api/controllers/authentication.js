@@ -85,8 +85,6 @@ module.exports.register = function(req, res) {
 
 }; /* register ends here */
 
-
-
 /* user verification */
 module.exports.verify = function(req, res) {
 	User.findOne({
@@ -210,7 +208,7 @@ module.exports.facebookLogin = function(req, res) {
 
 		if (user && user.verified === true) {
 			token = user.generateJwt();
-			res.redirect('https://profinder1.herokuapp.com/#/facebook/'+token);
+			res.redirect('/#/facebook/'+token);
 			console.log(' token: ' + token);
 		} else {
 			sendJSONresponse(res, 401, info);
