@@ -48,10 +48,11 @@
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <navigation></navigation> <!-- get directives from app_client/common-->
 
-<div id="products" class="container"> <!--container starts-->
+<div id="products-post" class="container"> <!--container starts-->
+  <h2 class="text-center" style="color:black">Post Product</h2>
     <div class="row" style="">
 
-        <div class="jumbotron">
+        <div class="well" id="post-well">
           <form action="" enctype="multipart/form-data" method="post">
               <div class="form-group">
                 <label>Select store:</label>
@@ -75,19 +76,19 @@
                 <input type="text" class="form-control" name="color">
                 <label>Size:</label>
                 <input type="text" class="form-control" name="size">
-                <label>More Images:</label>
-                <input type="text" class="form-control" name="url">
+<!--                 <label>More Images:</label>
+                <input type="text" class="form-control" name="url"> -->
                 <label>Available:</label>
                 <input type="text" class="form-control" name="available">
                 <label>Product Descriptions:</label>
-                <input type="text" class="form-control" name="detail">
+                <textarea class="form-control" rows="5" name="detail"></textarea>
                 <label>Price:</label>
                 <input type="text" class="form-control" name="price">
                 <label>Manufactured:</label>
                 <input type="text" class="form-control" name="manufactured">
                 <label>Expiry:</label>
                 <input type="text" class="form-control" name="expiry">
-                <input type="submit" value="Submit"></input>
+                <input type="submit" class="btn btn-default" value="Submit"></input>
 
               </div>
           </form>

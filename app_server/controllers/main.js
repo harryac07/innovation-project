@@ -4,7 +4,6 @@ var cloudinary = require('cloudinary');
 
 // Mongoose Model
 var mongoose = require('mongoose');
-var product = mongoose.model('Product');
 
 var apiOptions = {
 	server: "http://localhost:3000"

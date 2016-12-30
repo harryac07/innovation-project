@@ -116,7 +116,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 			$('#text').val($window.location.href);
 		});
 
-	});
+	}, 3800);
 
 
 }

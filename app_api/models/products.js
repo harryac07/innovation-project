@@ -18,7 +18,7 @@ var imageSchema = new mongoose.Schema({
         enum: ['thumbnail', 'catalog', 'detail', 'zoom']
         // required: true
     },
-    url: { type: String, required: true }
+    url: { type: String }
 });
 
 /*Sizes schema*/

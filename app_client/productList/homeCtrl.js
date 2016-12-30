@@ -60,7 +60,7 @@ function homeCtrl($scope,$location, $timeout, productData,auth, locService) { //
 			.error(function(e) {
 				console.log(e);
 			});
-	});
+	}, 3900);
 
 	// var key = " ";
 	// $('#search').keypress(function(e) {

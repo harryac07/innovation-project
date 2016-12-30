@@ -89,7 +89,7 @@ module.exports.productsCreate = function(req, res) {
 						var text = "<p>Hello,<br><br>New products have been added to the proFinder app now. Here are basic product details.<br><br>Product name: " + req.body.name + "<br>Product Brand: " + req.body.brand + "<br>Product Details: " + req.body.detail + " <br><br><br>All of our products are valuable, you may miss the offers. For more informations, Please visit our site:<a href=''>Visit proFinder</a><br><br>Profinder Team</p>";
 						var mailOptions = {
 							from: 'harryac007@gmail.com', // sender address
-							subject: 'Welcome to ProFinder', // Subject line
+							subject: 'New Product Added', // Subject line
 							html: text
 								// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
 						};
