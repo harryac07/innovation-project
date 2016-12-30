@@ -1,6 +1,7 @@
 var app = require('express');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var moment = require('moment');
 var clients = 0;
 var usernames = {};
 var room = 'room1';
@@ -31,7 +32,7 @@ io.on('connection', function(socket) {
 		io.emit('chat message', {
 			message: msg,
 			user: socket.username,
-			date: new Date().toString()
+			date: moment(new Date()).format('YYYY-MM-DD, hh:mm a')
 		});
 	});
 	socket.on('disconnect', function() {
