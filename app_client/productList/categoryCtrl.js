@@ -73,5 +73,5 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 			.error(function(e) {
 				console.log(e);
 			});
-	}, 3800);
+	});
 }
