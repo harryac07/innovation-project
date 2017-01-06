@@ -1,5 +1,5 @@
 
-<div class="container-fluid col-sm-10" id="productInfo" style="padding:20px">
+<div class="container-fluid col-sm-9" id="productInfo" style="padding:20px">
 	<div id="wait-detail">
 		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:50%;line-height: 350px;height: 350px;"></i>
 	</div>
@@ -11,7 +11,7 @@
 		        </a>
 				<img src="{{data.product.image}}" height="400px" width="100%">
 			</div>
-			<div class="col-sm-4 col-xs-12">
+			<div class="col-sm-3 col-xs-12">
 				<h2> <span style="color:black">Category:</span><span style="color:#8A3F3C"> {{data.product.category }} </span> </h2>
 				<h4> <span style="color:black">product:</span> {{data.product.name }} </h4>
 				<h4> <span style="color:black">manufactured:</span> {{data.product.manufactured }} </h4>
@@ -24,10 +24,10 @@
 					<span class="glyphicon glyphicon-star{{ data.product.store[0].rating<5 ? '-empty' : ''}}" style="color:#c63939"></span>
 				</h4>
 		        <br>
-		        <p><b> {{data.product.varient[0].sizeDetail[0].detail }} </b> </p>
+		        
 
 			</div>
-			<div class="col-sm-2 col-xs-12">
+			<div class="col-sm-3 col-xs-12">
 				<a href="#" class="btn btn-info btn-lg">
 	         		<span class="glyphicon glyphicon-shopping-cart"></span> Shop Now
 	        	</a>
@@ -37,6 +37,34 @@
 	        	<h4> <span id="distance">Store: {{distance}} KM</span> </h4>
 	        	<button class="btn"><a style=";color:black;font-weight:bold;text-decoration:none" href="/#/store/{{data.product.store[0]._id}}">Store Details</a></button>
 	        	<h5 style="color:green"> <span style="color:green">Available :</span> {{ data.product.varient[0].sizeDetail[0].available }} </h5>
+			</div>
+		</div>
+		<div class="row" style="color:black;padding-top:20px">
+		<!-- 	<div class="col-sm-12 col-xs-12" style="color:black">
+				<h3><strong>Product Details</strong></h3>
+				
+			</div> -->
+			<div class="col-sm-12 col-xs-12">
+				<ul class="nav nav-tabs">
+				    <li class="active"><a data-toggle="tab" data-target="#detail">Product Details</a></li>
+				    <li><a data-toggle="tab" data-target="#available">Check Availibility</a></li>
+				    <li><a data-toggle="tab" data-target="#faq">FAQ</a></li>
+				</ul>
+
+				<div class="tab-content">
+				    <div id="detail" class="tab-pane fade in active">
+				      <br>
+				      <p> {{data.product.varient[0].sizeDetail[0].detail }} </p>
+				    </div>
+				    <div id="available" class="tab-pane fade">
+				      <br>
+				      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				    </div>
+				    <div id="faq" class="tab-pane fade">
+				      <br>
+				      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+				    </div>
+				</div>
 			</div>
 		</div>
 		<div class="row">

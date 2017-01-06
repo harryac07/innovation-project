@@ -9,9 +9,14 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <!-- jquery ui css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--jquery ui -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <!--moment js-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
   <!--scrolltop plugin-->
@@ -23,6 +28,8 @@
   <script data-require="angular.js@*" data-semver="1.3.15" src="https://code.angularjs.org/1.3.15/angular.js"></script>
   <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
   <script src="/lib/angular-route.min.js"></script><!--include route lib file-->
+  <!-- ng sanitize -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-sanitize.min.js"></script>
   
   <script src="ng-file-upload-shim(.min).js"></script> <!-- for no html5 browsers support -->
   <script src="ng-file-upload(.min).js"></script>
@@ -42,6 +49,8 @@
   <script src="/post/postproduct.js"></script>
   <script src="/about/aboutCtrl.js"></script>
   <script src="/social/facebookCtrl.js"></script>
+  <script src="/resetPassword/resetCtrl.js"></script>
+  <script src="/resetPassword/resetpasswordCtrl.js"></script>
 
   <script src="/common/services/dataService.js"></script>
   <script src="/common/services/authentication.service.js"></script>
@@ -72,19 +81,89 @@
 <div id="products" class="container-fluid"> <!--container starts-->
     <div class="row" style="">
         <!--Categories rows-->
-        <div class="col-sm-2" style="border-right:1px solid gray;margin-left:0px">
+
+        <div class="col-sm-3" style="">
             <h3 class="text-center" style="color:#8A3F3C">Categories</h3>
             <hr style="border:1px solid gray">
-            <div id="side-bar" style=";padding:20px 0 0 0px">
-                <a href="/#/product/category/phone"><h4>Phones & GPS</h4></a>
-                <a href="/#/product/category/laptop"><h4>Computers & Laptops</h4></a>
-                <a href="/#/product/category/audio"><h4>Audio & Video</h4></a>
-                <a href="/#/product/category/camera"><h4>Cameras & Films</h4></a>
-                <a href="/#/product/category/game"><h4>Games</h4></a>
-                <a href="/#/product/category/sports"><h4>Sports & Outdoors</h4></a>
-                <a href="/#/product/category/dailyDeals"><h3 style="color:red">Daily Deals</h3></a>
-            </div>
-        </div> 
+            <div id="accordion">
+                <h3>Phones & GPS</h3>
+                <div>
+                    <ul class="list-unstyled">
+                        <li><a href="/#/product/category/phone">Smart Phones</a></li>
+                        <li><a href="/#/product/category/laptop">Phones Accessories</a></li>
+                        <li><a href="/#/product/category/audio">Smart Watches</a></li>
+                        <li><a href="/#/product/category/camera">GPS Devices</a></li>
+                        <li><a href="/#/product/category/game">Phone Cases</a></li>
+                    </ul>
+                </div>
+                <h3>Computers</h3>
+                <div>
+                    <ul class="list-unstyled">
+                        <li><a href="/#/product/category/phone">Laptops</a></li>
+                        <li><a href="/#/product/category/laptop">Tablets & Ipads</a></li>
+                        <li><a href="/#/product/category/audio">Desktop Computer</a></li>
+                        <li><a href="/#/product/category/camera">Laptop Bags</a></li>
+                        <li><a href="/#/product/category/game">Computer Accessories</a></li>
+                    </ul>
+                </div>
+                <h3>Cameras</h3>
+                <div>
+                    <ul class="list-unstyled">
+                        <li><a href="/#/product/category/phone">Digital Camera</a></li>
+                        <li><a href="/#/product/category/laptop">SLR Camera</a></li>
+                        <li><a href="/#/product/category/audio">Video Camera</a></li>
+                        <li><a href="/#/product/category/camera">Action Camera</a></li>
+                        <li><a href="/#/product/category/game">Camera Lenses</a></li>
+                        <li><a href="/#/product/category/game">Camera Accessories</a></li>
+                    </ul>
+                </div>
+
+                <h3>Audio & Video</h3>
+                <div>
+                    <ul class="list-unstyled">
+                        <li><a href="/#/product/category/phone">Speakers</a></li>
+                        <li><a href="/#/product/category/laptop">HeadPhones</a></li>
+                        <li><a href="/#/product/category/audio">Movies</a></li>
+                        <li><a href="/#/product/category/camera">Audio Systems</a></li>
+                        <li><a href="/#/product/category/game">Multi-room Products</a></li>
+                        <li><a href="/#/product/category/game">Cables</a></li>
+                        <li><a href="/#/product/category/game">Musical Instruments</a></li>
+                        <li><a href="/#/product/category/game">Projectors</a></li>
+                        <li><a href="/#/product/category/game">Media Accessories</a></li>
+
+                    </ul>
+                </div>
+
+                <h3>Games</h3>
+                <div>
+                    <ul class="list-unstyled">
+                        <li><a href="/#/product/category/phone">Table Games</a></li>
+                        <li><a href="/#/product/category/laptop">Board Games</a></li>
+                        <li><a href="/#/product/category/audio">Game Controllers</a></li>
+                        <li><a href="/#/product/category/camera">Video Games</a></li>
+                        <li><a href="/#/product/category/game">V-R Products</a></li>
+
+                    </ul>
+                </div>
+
+                <h3>Sports & Outdoors</h3>
+                <div>
+                    <ul class="list-unstyled">
+                        <li><a href="/#/product/category/phone">Shoes & Bags</a></li>
+                        <li><a href="/#/product/category/laptop">Indoors</a></li>
+                        <li><a href="/#/product/category/audio">Outdoors</a></li>
+                        <li><a href="/#/product/category/camera">Gyms & Exercises</a></li>
+
+                    </ul>
+                </div>
+
+                <h3>Popular</h3>
+                <div>
+                    View all popular products and recent offers.
+                </div>
+
+            </div> <!--accordion ends here -->
+        </div>
 
         <div ng-view > 
           
@@ -92,13 +171,12 @@
     </div>
 
 </div>
+
+
 <a href="" id="chat" class="btn btn-info btn-lg" style="position:fixed;bottom:0;margin-bottom:20px;">
     <span class="glyphicon glyphicon-comment"></span> Chat
 </a>
-<!-- <div id= "footer" class="text-center" style="position:fixed;bottom:0;width:100%;margin-top:20px">
-  
-  <h4> &copy; Product Finder Team </h4>
-</div> -->
+
 <div id="chat-box" class='container' style="display:none;">
 <!--     <div id="user-box">
         <h3 style="padding:10px">Online Users </h3>

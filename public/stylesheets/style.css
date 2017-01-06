@@ -55,17 +55,12 @@
 
 
   }
-  #side-bar a{ 
+  #accordion a{ 
     text-decoration:none;
     display: inline-block;
-    width: 100%;
     color:black;
-    border-bottom:1px solid gray;
 
   }
- #side-bar a:hover {
-   background-color: #8A3F3C;
-}
 input[type="text"] {
     font-family: FontAwesome;
     font-size: 25px;
@@ -157,7 +152,8 @@ color: black !important;
 }
 #chat-content{
   height: 250px;
-  overflow: scroll;
+  width: 100%;
+  overflow-y:scroll; 
 }
 #chat-header{
   background-color: #632927;
@@ -232,6 +228,19 @@ textarea {
 }
 #post-well input,#post-well textarea,#post-well select{
   border: 1px solid gray;
+}
+
+.list-unstyled li{
+  border:1px solid gray;
+  padding: 5px;
+}
+.list-unstyled li:hover { 
+  background-color: #632927;
+
+}
+.list-unstyled li:hover a{ 
+  color:#fff !important;
+
 }
 
 /* hide chat div*/

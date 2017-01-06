@@ -39,7 +39,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 				console.log($scope.lon2 + ',' + data.store[0].coords[0]);
 				//Total number of reviews
 				console.log('reviews count: ' + data.review.length);
-				if (data.review.length < 1) {
+				if (data.review.length < 4) {
 					$('#moreReview').hide();
 				}
 				//call average rating
@@ -116,7 +116,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 			$('#text').val($window.location.href);
 		});
 
-	});
+	}, 3800);
 
 
 }

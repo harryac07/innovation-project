@@ -42,6 +42,14 @@ function auth($http, $window, $location) {
 	var verify = function(token) {
 		return $http.get('/api/verify/' + token);
 	};
+	var resetPassword=function(data){ // to send the link to email
+		return $http.post('/api/forgotPwd',data).success(function(data) {
+			// saveToken(data.token);
+		});
+	};
+	var changePassword=function(token,data){
+		return $http.post('/api/resetpassword/'+token,data);
+	};
 
 	login = function(user) {
 		return $http.post('/api/login', user).success(function(data) {
@@ -67,7 +75,9 @@ function auth($http, $window, $location) {
 		verify: verify,
 		login: login,
 		logout: logout,
-		facebookLogin: facebookLogin
+		facebookLogin: facebookLogin,
+		resetPassword:resetPassword,
+		changePassword:changePassword
 	};
 
 }

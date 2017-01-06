@@ -7,8 +7,26 @@ $(document).ready(function() {
 		this.scrollTop += (delta < 0 ? 1 : -1) * 25;
 		e.preventDefault();
 	});
+	/* scroll to top when page changed */
+	$('#pager-bottom button').click(function() {
+		window.scrollTop(0);
+	});
+	/*jQuery Ui accordion */
+	$("#accordion").accordion({
+		collapsible: true,
+		heightStyle: "content"
+	});
+	$(".nav-tabs a").click(function() {
+		$(this).tab('show');
+	});
 
-
+	// $('#accordion ul li').hover(function() {
+	// 	$(this).css('background-color', '#632927');
+	// 	$('.list-unstyled li a').css('color', '#fff');
+	// }, function() {
+	// 	$('.list-unstyled li a').css('background-color', '');
+	// 	$('.list-unstyled li a').css('color', 'black');
+	// });
 
 	$("#chat").click(function() {
 		if (window.localStorage['user-token']) {
@@ -25,7 +43,7 @@ $(document).ready(function() {
 
 
 	/* Socket starts here */
-	var socket = io('https://profinder1.herokuapp.com');
+	var socket = io('http://localhost:3000');
 
 	// check if user log in and only perform chat
 	if (window.localStorage['user-token']) {
@@ -46,7 +64,7 @@ $(document).ready(function() {
 
 		/* Handle when chat starts*/
 		socket.on('chat message', function(msg) {
-			$('#chat-content').prepend("<div style='border-bottom:1px solid black;margin:0'><span style='font-weight:bold;font-size:22px'>" + msg.user +"</span>"+ " : " + msg.message + "<br>" + msg.date + "</div>");
+			$('#chat-content').prepend("<div style='border-bottom:1px solid black;margin:0'><span style='font-weight:bold;font-size:22px'>" + msg.user + "</span>" + " : " + msg.message + "<br>" + msg.date + "</div>");
 		});
 		/*To broadcast*/
 		socket.on('broadcast', function(data) {

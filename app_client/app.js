@@ -1,4 +1,4 @@
-angular.module('productFinder', ['ngRoute']); // routes for controller
+angular.module('productFinder', ['ngRoute','ngSanitize']); // routes for controller
 
 function config($routeProvider) {
 	$routeProvider
@@ -27,6 +27,14 @@ function config($routeProvider) {
 		.when('/verify/:token', {
 			templateUrl: 'register/verify.html',
 			controller: 'registerCtrl'
+		})
+		.when('/reset', {
+			templateUrl: 'resetPassword/reset.html',
+			controller: 'resetCtrl'
+		})
+		.when('/resetpassword/:token', {
+			templateUrl: 'resetPassword/resetpassword.html',
+			controller: 'resetpasswordCtrl'
 		})
 		.when('/login', {
 			templateUrl: 'login/login.html',

@@ -46,7 +46,8 @@ router.get('/auth/facebook/callback', ctrlAuth.facebookLogin);
 router.post('/login', ctrlAuth.login);
 
 router.get('/verify/:token', ctrlAuth.verify);
-router.get('/forgotPwd/:token', ctrlAuth.forgotPwd);
+router.post('/forgotPwd', ctrlAuth.forgotPwd);
+router.post('/resetpassword/:token',ctrlAuth.resetpassword);
 router.get('/users', ctrlAuth.getUsers);
 
 // /* Reviews */

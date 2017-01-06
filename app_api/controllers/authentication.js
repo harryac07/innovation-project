@@ -161,7 +161,98 @@ module.exports.verify = function(req, res) {
 /* Forgot password */
 
 module.exports.forgotPwd = function(req, res) {
+	console.log(req.body.email);
+	User.findOne({
+			email: req.body.email
+		})
+		.exec(function(err, user) {
+			if (err) {
+				console.log(err);
+				sendJSONresponse(res, 400, err);
+				return;
+			} else if (!user) {
+				sendJSONresponse(res, 404, {
+					"message": "User not found"
+				});
+				return;
+			} else {
+				//Send user link to reset password
+				var transporter = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+						user: 'harryac007@gmail.com', // your email here
+						pass: process.env.EMAIL_SECRET // your password here
+					}
+				});
 
+				//var text1 = 'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n';
+				linkToken = user.verifyToken;
+				var message = 'Hello ' + user.name + ',\n\n' + 'Here is the link for reseting you password\n\nPlease click in the link below and reset your password\n' + 'http://' + req.headers.host + '/#/resetpassword/' + linkToken + '\n\nIf you have not requested to change password then please ignore the email.\n\n\nProFinder Team';
+				mailOptions = {
+					from: 'harryac007@gmail.com', // sender address
+					to: req.body.email, // list of receivers
+					subject: 'Reset Password', // Subject line
+					text: message
+						// html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+				};
+				transporter.sendMail(mailOptions, function(err, info) {
+					if (err) {
+						console.log(err);
+						return;
+					} else if (!info) {
+						sendJSONresponse(res, 404, {
+							"message": "not found email."
+						});
+						return;
+					} else {
+						console.log('Message sent: ' + info);
+						sendJSONresponse(res, 200, info);
+
+					}
+				});
+
+			}
+		});
+
+};
+
+/* reset password */
+module.exports.resetpassword = function(req, res) {
+	User.findOne({
+			verifyToken: req.params.token
+		})
+		.exec(function(err, user) {
+			if (err) {
+				console.log(err);
+				sendJSONresponse(res, 400, err);
+				return;
+			} else if (!user) {
+				sendJSONresponse(res, 404, {
+					"message": "User not found"
+				});
+				return;
+			} else {
+				//check if user email and token matched
+				if (user.verifyToken === req.params.token && user.email === req.body.email) {
+
+					user.setPassword(req.body.password); // use setPassword method to set salt and hash
+					user.save(function(err, user) {
+						if (err) {
+							sendJSONresponse(res, 400, err);
+							return;
+						} else {
+							sendJSONresponse(res, 201, user);
+						}
+					});
+				}else{
+					sendJSONresponse(res,404,{
+						"message":"user not found with that email"
+					});
+					return;
+				}
+
+			}
+		});
 
 };
 
@@ -198,7 +289,7 @@ module.exports.login = function(req, res) {
 
 /* Login */
 module.exports.facebookLogin = function(req, res) {
-	
+
 	passport.authenticate('facebook', function(err, user, info) {
 		var token;
 		if (err) {
@@ -208,7 +299,7 @@ module.exports.facebookLogin = function(req, res) {
 
 		if (user && user.verified === true) {
 			token = user.generateJwt();
-			res.redirect('/#/facebook/'+token);
+			res.redirect('/#/facebook/' + token);
 			console.log(' token: ' + token);
 		} else {
 			sendJSONresponse(res, 401, info);
