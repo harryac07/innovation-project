@@ -3,7 +3,7 @@
 
 <div id="products" class="col-sm-9 col-xs-12" style=";padding-top:20px;">
 	<div id="wait">
-		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:50%;line-height: 350px;height: 350px;"></i>
+		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:45%;line-height: 350px;height: 350px;"></i>
 	</div>
 	<div id="show-products">
 		<div class="dropdown" style="display:inline;color:black">
@@ -23,11 +23,11 @@
 	        	First
 	    	</button>
 	    	<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-	        	Previous
+	        	<i class="fa fa-angle-double-left" aria-hidden="true"></i>
 	    	</button>
 	    		<button class="btn btn-default">{{currentPage+1}}/{{numberOfPages()}}</button>
 		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
-		        Next
+		        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 		    </button>
 		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
 	        	Last
@@ -41,26 +41,26 @@
 		            <h3 style="color:black">{{product.name}}</h3>
 		            <p>{{product.store[0].name}}</p>
 		            <p>€ {{ product.varient[0].sizeDetail[0].price }}</p>
-		            <p style="color:black;font-size:17px"> Store distance: <span style="color:red">{{distance}} KM</span></p>
+		            <p style="color:black;font-size:17px" ng-show="geolocation"> Store distance: <span style="color:red">{{distance}} KM</span></p>
 		            </p>
 		        </div>
 		    
 		</div>
-		<div style="display:inline-block;position: absolute; right:0;bottom:2px; padding-right:20px;color:black" id="pager-bottom">
+<!-- 		<div style="display:inline-block;position: absolute;bottom:2px;color:black;padding:10px" id="pager-bottom">
 			<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
 	        	First
 	    	</button>
 	    	<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-	        	Previous
+	        	<i class="fa fa-angle-double-left" aria-hidden="true"></i>
 	    	</button>
 	    		<button class="btn btn-default">{{currentPage+1}}/{{numberOfPages()}}</button>
 		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
-		        Next
+		        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 		    </button>
 		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
 	        	Last
 	    	</button>
-		</div>
+		</div> -->
 	</div>
 </div>
 

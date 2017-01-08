@@ -202,8 +202,9 @@ color: black !important;
       overflow: scroll;
     }
     #pager{
-      display: none;
-      visibility: hidden;
+      position: relative;
+      bottom: 0;
+      margin: auto;
     }
     #login{
     padding-left: 10px;

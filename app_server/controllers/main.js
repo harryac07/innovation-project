@@ -9,14 +9,14 @@ var apiOptions = {
 	server: "http://localhost:3000"
 };
 if (process.env.NODE_ENV === 'production') {
-	apiOptions.server = 'https://metrofinder.herokuapp.com';
+	apiOptions.server = 'https://profinder1.herokuapp.com';
 }
 
 /* CLoudinary setup */
 cloudinary.config({
-	cloud_name: 'haria',
-	api_key: '114523583929527',
-	api_secret: 'qq_hgWwFvd2Bcst4futLR2oVSYo'
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET
 });
 
 

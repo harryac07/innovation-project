@@ -5,19 +5,35 @@ angular
 
 
 function homeCtrl($scope, $location, $timeout, productData, auth, locService) { // service as parameter
-
+	/*Geolocation*/
 	$scope.lon2 = "";
 	$scope.lat2 = "";
 
-	navigator.geolocation.getCurrentPosition(function(position) {
-		$scope.lon2 = position.coords.longitude;
-		$scope.lat2 = position.coords.latitude;
-		console.log($scope.lon2);
+	if (navigator.geolocation) {
 
-	});
-	$("#wait").show();
+		navigator.geolocation.getCurrentPosition(function(position) {
+			$scope.lon2 = position.coords.longitude;
+			$scope.lat2 = position.coords.latitude;
+
+			// show distance in home page only if geolocation is on 
+			$scope.$watch('geolocation', function() {
+				if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
+					$scope.geolocation = true;
+				} else {
+					$scope.geolocation = false;
+				}
+			});
+
+		});
+	} else {
+		console.log("Geolocation is not supported by this browser.");
+	} /* .geolocation ends here */
+
+
+	$("#wait").show(); // wait page to load. set timeout function called
 	$('#show-products').css("display", "none");
-	$timeout(function() {
+
+	$timeout(function() { // timeout just for testing purpose
 		$("#wait").css("display", "none");
 		$('#show-products').show();
 		$("#search").show();
@@ -60,12 +76,13 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 			.error(function(e) {
 				console.log(e);
 			});
-	}, 3900);
+	});
 
 	/* scroll to top when page changed */
-	$('#pager-bottom button').click(function(){
+	$('#pager').click(function() {
 		$(window).scrollTop(0);
 	});
+
 
 
 	// var key = " ";

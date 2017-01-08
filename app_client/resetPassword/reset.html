@@ -1,19 +1,18 @@
 <div class="col-sm-9">
 	<h3>Reset Password</h3>
 	<div class="alert alert-danger" ng-show="formError">{{formError}}</div>
-	<div class="well" style="color:black">
-		<p>Please enter a valid email address to reset your password. If you did not receive an email including password reset link, please send it again.
-		</p>
-	</div>
 
 	<div class="well">
+		<div class="alert alert-info" style="">
+			<p>Please enter a valid email address to reset your password. If you did not receive an email including password reset link, please send it again.
+			</p>
+		</div>
     	<form class="form-horizontal" ng-submit="onSubmit()">
 	        <div class="form-group">
 
 	            <label><b>Email</b></label>
 	            <input type="email" class="form-control" ng-model="credentials.email"id="email" required>
-	            
-	            <button type="submit" class="btn btn-primary">Send</button>
+	            <button type="submit" class="btn  btn-primary"> Send </button>
 	        </div>
     	</form>
 	</div>

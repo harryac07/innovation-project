@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 
 	/* Socket starts here */
-	var socket = io('http://localhost:3000');
+	var socket = io('https://profinder1.herokuapp.com');
 
 	// check if user log in and only perform chat
 	if (window.localStorage['user-token']) {

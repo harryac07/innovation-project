@@ -66,7 +66,7 @@ function storeDetailCtrl($scope, $routeParams, $timeout, $window, productData, l
 			document.getElementById('mode').addEventListener('change', function() {
 				calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
 			});
-		}, 500);
+		}, 50);
 	};
 	/*map ends here*/
 	function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {

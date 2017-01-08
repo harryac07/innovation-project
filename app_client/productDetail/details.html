@@ -1,7 +1,7 @@
 
 <div class="container-fluid col-sm-9" id="productInfo" style="padding:20px">
 	<div id="wait-detail">
-		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:50%;line-height: 350px;height: 350px;"></i>
+		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:45%;line-height: 350px;height: 350px;"></i>
 	</div>
 	<div id="detail-body"><!-- for loader to run -->
 		<div class="row">
@@ -34,7 +34,7 @@
 	        	<h3 style="color:red">€ {{data.product.varient[0].sizeDetail[0].price }} </h3>
 	        	<br>
 	        	<h4> <span style="color:black">Store:</span> {{data.product.store[0].name }}, {{ data.product.store[0].address }} </h4>
-	        	<h4> <span id="distance">Store: {{distance}} KM</span> </h4>
+	        	<h4 ng-show="geolocation"> <span id="distance">Store: {{distance}} KM</span> </h4>
 	        	<button class="btn"><a style=";color:black;font-weight:bold;text-decoration:none" href="/#/store/{{data.product.store[0]._id}}">Store Details</a></button>
 	        	<h5 style="color:green"> <span style="color:green">Available :</span> {{ data.product.varient[0].sizeDetail[0].available }} </h5>
 			</div>
@@ -54,7 +54,7 @@
 				<div class="tab-content">
 				    <div id="detail" class="tab-pane fade in active">
 				      <br>
-				      <p> {{data.product.varient[0].sizeDetail[0].detail }} </p>
+				      <p ng-bind-html="content"></p>
 				    </div>
 				    <div id="available" class="tab-pane fade">
 				      <br>
@@ -77,7 +77,7 @@
 			</div>
 			<div class="review col-sm-12 col-xs-12">
 			  <button type="button" ng-show="isLoggedIn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#reviewModel">Add Review</button>
-			  <button type="button" ng-hide="isLoggedIn" class="btn btn-info btn-lg"><a style="text-decoration: none" href="/#/login">Login to add review</a></button>
+			  <a style="text-decoration: none" ng-hide="isLoggedIn" class="btn btn-info btn-lg" href="/#/login">Login to add review</a>
 			  <hr>
 			  <div id="review-box">
 			  	<h3>Reviews for {{data.product.name}}</h3>

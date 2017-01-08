@@ -12,21 +12,20 @@ function resetpasswordCtrl($scope, $routeParams, $location, $window, auth) { // 
 
 	/* password change form for resetPassword */
 	$scope.onSubmit = function() {
-		if (!$scope.credential.email || !$scope.credential.password) {
+		if (!$scope.credential.password || !$scope.confirmPassword) {
 			$scope.formError = "All fields required!";
 			return false;
 		} else if (!($scope.credential.password === $scope.confirmPassword)) {
-			$scope.passwordError = "retype password!";
+			$scope.passwordError = "Password mismatched. retype!";
 			return false;
 		} else {
 			auth
-				.changePassword($routeParams.token, $scope.credential).success(function(data) {
-					console.log('success');
-				})
+				.changePassword($routeParams.token, $scope.credential)
 				.error(function(err) {
 					$scope.formError = err;
+					$scope.resendLink=true;
 				}).then(function() {
-					$window.location.href = "/#/login";
+					$window.location.href = "/#/resetpassword";
 				});
 		}
 	};

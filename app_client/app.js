@@ -1,4 +1,6 @@
-angular.module('productFinder', ['ngRoute','ngSanitize']); // routes for controller
+angular
+	.module('productFinder', ['ngRoute', 'ngSanitize'])
+	.config(['$routeProvider', config]);
 
 function config($routeProvider) {
 	$routeProvider
@@ -6,8 +8,8 @@ function config($routeProvider) {
 			templateUrl: 'productList/home.html',
 			controller: 'homeCtrl'
 
-		}).
-	when('/product/:productid', {
+		})
+		.when('/product/:productid', {
 			templateUrl: 'productDetail/details.html',
 			controller: 'productDetailCtrl'
 		})
@@ -36,6 +38,10 @@ function config($routeProvider) {
 			templateUrl: 'resetPassword/resetpassword.html',
 			controller: 'resetpasswordCtrl'
 		})
+		.when('/resetpassword', {
+			templateUrl: 'resetPassword/resetSuccess.html',
+			controller: 'resetpasswordCtrl'
+		})
 		.when('/login', {
 			templateUrl: 'login/login.html',
 			controller: 'loginCtrl'
@@ -60,7 +66,3 @@ function config($routeProvider) {
 			redirectTo: '/'
 		})
 }
-
-angular
-	.module('productFinder')
-	.config(['$routeProvider', config]);

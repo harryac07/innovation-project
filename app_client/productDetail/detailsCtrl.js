@@ -10,8 +10,15 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 	navigator.geolocation.getCurrentPosition(function(position) {
 		$scope.lon2 = position.coords.longitude;
 		$scope.lat2 = position.coords.latitude;
-		console.log($scope.lon2);
 
+		// show distance in home page only if geolocation is on 
+		$scope.$watch('geolocation', function() {
+			if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
+				$scope.geolocation = true;
+			} else {
+				$scope.geolocation = false;
+			}
+		});
 	});
 
 	$scope.productid = $routeParams.productid; // pass route params to controller 
@@ -24,7 +31,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 	$("#wait-detail").show();
 	$('#detail-body').css("display", "none");
 
-	$timeout(function() {
+	$timeout(function() {  // timeout just for testing purpose
 
 		$("#wait-detail").css("display", "none");
 		$('#detail-body').show();
@@ -49,6 +56,9 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 				};
 				/* handling the review limit */
 				$scope.limit = $scope.data.product.review.length;
+
+				/* handling the product details with linke break and spaces*/
+				$scope.content = data.varient[0].sizeDetail[0].detail.replace(/\r?\n/g, '<br />'); // actual product detail
 
 			})
 			.error(function(e) {
@@ -116,7 +126,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 			$('#text').val($window.location.href);
 		});
 
-	}, 3800);
+	});
 
 
 }

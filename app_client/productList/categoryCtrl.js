@@ -15,7 +15,7 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 	$("#wait").show();
 	$('#show-products').css("display", "none");
 
-	$timeout(function() {
+	$timeout(function() { // timeout just for testing purpose
 
 		$("#wait").css("display", "none");
 		$('#show-products').show();
@@ -73,5 +73,5 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 			.error(function(e) {
 				console.log(e);
 			});
-	}, 3800);
+	});
 }

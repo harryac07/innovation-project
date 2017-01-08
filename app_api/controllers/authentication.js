@@ -57,7 +57,7 @@ module.exports.register = function(req, res) {
 			//var text1 = 'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n';
 
 			var message = 'Hello ' + req.body.name + ',\n\n' + 'Welcome to ProFinder. Please verify account and become our true customer. The verification link is right below, click it and you are all set.\n\n' +
-				'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n\nProFinder Team';
+				'https://' + req.headers.host + '/#/verify/' + linkToken + '\n\n\nProFinder Team';
 			mailOptions = {
 				from: 'harryac007@gmail.com', // sender address
 				to: req.body.email, // list of receivers
@@ -176,6 +176,16 @@ module.exports.forgotPwd = function(req, res) {
 				});
 				return;
 			} else {
+				/* Before sending user token, create a tokenExpiryTime for 1 hour. */
+				user.tokenExpiryTime=Date.now()+3600000;
+				user.save(function(err,user){ // save token expiry time for resetting password
+					if(err){
+						console.log(err);
+						return;
+					}else{
+						console.log(user);
+					}
+				});
 				//Send user link to reset password
 				var transporter = nodemailer.createTransport({
 					service: 'gmail',
@@ -219,7 +229,8 @@ module.exports.forgotPwd = function(req, res) {
 /* reset password */
 module.exports.resetpassword = function(req, res) {
 	User.findOne({
-			verifyToken: req.params.token
+			verifyToken: req.params.token, // if token matched with parameter
+			tokenExpiryTime:{ $gt: Date.now() } // if token is not expired or crossed 1 hour,
 		})
 		.exec(function(err, user) {
 			if (err) {
@@ -228,14 +239,15 @@ module.exports.resetpassword = function(req, res) {
 				return;
 			} else if (!user) {
 				sendJSONresponse(res, 404, {
-					"message": "User not found"
+					"message": "The link is already expired. Please resend again!"
 				});
 				return;
 			} else {
 				//check if user email and token matched
-				if (user.verifyToken === req.params.token && user.email === req.body.email) {
+				if (user.verifyToken === req.params.token) {
 
 					user.setPassword(req.body.password); // use setPassword method to set salt and hash
+					user.tokenExpiryTime=undefined; // set tokenexpiry time to be indefined. useful only for password reset
 					user.save(function(err, user) {
 						if (err) {
 							sendJSONresponse(res, 400, err);

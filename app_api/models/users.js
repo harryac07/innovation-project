@@ -29,6 +29,9 @@ var userSchema = new mongoose.Schema({
 	verifyToken: {
 		type: String
 	},
+	tokenExpiryTime:{
+		type:Date
+	},
 	hash: String,
 	salt: String
 });
@@ -52,6 +55,7 @@ userSchema.methods.generateJwt = function() {
 		name: this.name,
 		admin: this.admin,
 		verifyToken: this.verifyToken,
+		tokenExpiryTime:this.tokenExpiryTime,
 		verified: this.verified,
 		resetPwdExpire:this.resetPwdExpire,
 		exp: parseInt(expiry.getTime() / 1000)
