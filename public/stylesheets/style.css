@@ -203,8 +203,10 @@ color: black !important;
     }
     #pager{
       position: relative;
-      bottom: 0;
-      margin: auto;
+      bottom: 0px;
+      margin-top: 20px;
+      padding-left: 40px;
+      z-index: 5;
     }
     #login{
     padding-left: 10px;
@@ -213,6 +215,13 @@ color: black !important;
     #register{
       padding-left: 10px;
       padding-right: 10px;
+    }
+    /* items per page select smaller  */
+    #selectItem{
+      font-size: 12px;
+    }
+    #show-products .dropdown{
+      font-size: 13px;
     }
 
 }

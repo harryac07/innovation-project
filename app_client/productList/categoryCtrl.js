@@ -6,12 +6,32 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 	$scope.lon2 = "";
 	$scope.lat2 = "";
 
-	navigator.geolocation.getCurrentPosition(function(position) {
-		$scope.lon2 = position.coords.longitude;
-		$scope.lat2 = position.coords.latitude;
-		console.log($scope.lon2);
+	if (navigator.geolocation) {
 
-	});
+		navigator.geolocation.getCurrentPosition(function(position) {
+			$scope.lon2 = position.coords.longitude;
+			$scope.lat2 = position.coords.latitude;
+
+			// show distance in home page only if geolocation is on 
+			$scope.$watch('geolocation', function() {
+				if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
+					$scope.geolocation = true;
+
+					$scope.disCalc = function(storelon, storelat, disObj) {
+						return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
+
+					};
+				} else {
+					$scope.geolocation = false;
+				}
+			});
+
+		});
+	} else {
+		console.log("Geolocation is not supported by this browser.");
+	} /* .geolocation ends here */
+
+
 	$("#wait").show();
 	$('#show-products').css("display", "none");
 

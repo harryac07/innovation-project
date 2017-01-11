@@ -6,32 +6,44 @@
 		<i class="fa fa-spinner fa-spin text-center" style="font-size:44px;margin-left:45%;line-height: 350px;height: 350px;"></i>
 	</div>
 	<div id="show-products">
-		<div class="dropdown" style="display:inline;color:black">
-		    <button  class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort by: {{sortTitle}}
-		    <span class="caret"></span></button>
-		    <ul class="dropdown-menu" id="sort-dropdown">
-		        <li><a href="" ng-init="sortBy='name'; sortTitle='A-Z'" ng-click="sortBy='name'">A-Z/a-z</a></li>
-		        <li><a href=""  ng-click="sortBy='-name'; sortTitle='Z-A'">Z-A/z-a</a></li>
-		        <li><a href=""  ng-click="sortBy='varient[0].sizeDetail[0].price'; sortTitle='Price ASC'">Min Price</a></li>
-		        <li><a href="" ng-click="sortBy='-varient[0].sizeDetail[0].price' ; sortTitle='Price DESC'">Max Price</a></li>
-		        <li><a href="" ng-click="sortBy='-createdOn' ; sortTitle='Recent'">Recently Added</a></li>
-		        <li><a href="" ng-click="sortBy='dis' ; sortTitle='distance'">Best Location</a></li>
-		    </ul>
-		</div>
-		<div style="display:inline;position: absolute; right:0; padding-right:20px;color:black" id="pager">
-			<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
-	        	First
-	    	</button>
-	    	<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-	        	<i class="fa fa-angle-double-left" aria-hidden="true"></i>
-	    	</button>
-	    		<button class="btn btn-default">{{currentPage+1}}/{{numberOfPages()}}</button>
-		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
-		        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-		    </button>
-		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
-	        	Last
-	    	</button>
+		<div class="row">
+			<div class="dropdown col-sm-4 col-xs-6" style="display:inline;color:black">
+			    <button  class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort by: {{sortTitle}}
+			    <span class="caret"></span></button>
+			    <ul class="dropdown-menu" id="sort-dropdown">
+			        <li><a href="" ng-init="sortBy='name'; sortTitle='A-Z'" ng-click="sortBy='name'">A-Z/a-z</a></li>
+			        <li><a href=""  ng-click="sortBy='-name'; sortTitle='Z-A'">Z-A/z-a</a></li>
+			        <li><a href=""  ng-click="sortBy='varient[0].sizeDetail[0].price'; sortTitle='Price ASC'">Min Price</a></li>
+			        <li><a href="" ng-click="sortBy='-varient[0].sizeDetail[0].price' ; sortTitle='Price DESC'">Max Price</a></li>
+			        <li><a href="" ng-click="sortBy='-createdOn' ; sortTitle='Recent'">Recently Added</a></li>
+			        <li><a href="" ng-click="sortBy='dis' ; sortTitle='distance'">Best Location</a></li>
+			    </ul>
+			</div>
+			<div class="col-sm-4 col-xs-6">
+				<select id="selectItem"  ng-init="numPerPage=9"ng-model="numPerPage" style="color:black;height:32px;padding-top:3px;padding-bottom:4px;text-align:center">
+				      <option value="6" >Items Per Page:  6</option>
+				      <option value="9" >Items Per Page:  9</option>
+				      <option value="12" >Items Per Page:  12</option>
+				      <option value="15" >Items Per Page:  15</option>
+				      <option value="{{totalItemsLength}}" >Items Per Page:  all</option>
+				    </select>
+			</div>
+		
+			<div style="display:inline;position: absolute; right:0; padding-right:20px;color:black" id="pager" class="col-sm-4 col-xs-12">
+				<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
+		        	First
+		    	</button>
+		    	<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+		        	<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+		    	</button>
+		    		<button class="btn btn-default">{{currentPage+1}}/{{numberOfPages()}}</button>
+			    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
+			        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+			    </button>
+			    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
+		        	Last
+		    	</button>
+			</div>
 		</div>
 		
 		<div class="row" style="display: flex;flex-wrap: wrap;" id="test-product">

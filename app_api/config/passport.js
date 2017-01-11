@@ -15,12 +15,13 @@ var User = mongoose.model('User');
 
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
-	done(null, user._id);
+	done(null, user.id);
 });
 
 // used to deserialize the user
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function(_id, done) {
 	User.findById(_id, function(err, user) {
+		// console.log(user);
 		done(err, user);
 	});
 });

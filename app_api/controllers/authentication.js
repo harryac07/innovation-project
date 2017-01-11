@@ -33,7 +33,7 @@ module.exports.register = function(req, res) {
 	}
 	user.setPassword(req.body.password); // use setPassword method to set salt and hash
 
-	user.save(function(err) {
+	user.save(function(err) {m0
 		var token;
 		if (err) {
 			sendJSONresponse(res, 400, err);
@@ -57,7 +57,7 @@ module.exports.register = function(req, res) {
 			//var text1 = 'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n';
 
 			var message = 'Hello ' + req.body.name + ',\n\n' + 'Welcome to ProFinder. Please verify account and become our true customer. The verification link is right below, click it and you are all set.\n\n' +
-				'https://' + req.headers.host + '/#/verify/' + linkToken + '\n\n\nProFinder Team';
+				'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n\nProFinder Team';
 			mailOptions = {
 				from: 'harryac007@gmail.com', // sender address
 				to: req.body.email, // list of receivers
@@ -299,7 +299,7 @@ module.exports.login = function(req, res) {
 
 };
 
-/* Login */
+/* facebook Login */
 module.exports.facebookLogin = function(req, res) {
 
 	passport.authenticate('facebook', function(err, user, info) {

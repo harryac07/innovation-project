@@ -33,6 +33,12 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 	$("#wait").show(); // wait page to load. set timeout function called
 	$('#show-products').css("display", "none");
 
+	/* For Pagination */
+	$scope.filteredItems = [];
+	$scope.currentPage = 0;
+	$scope.numPerPage = $('#selectItem').val(); // get value of numPerPage from select in view
+	$scope.maxSize = 5;
+
 	$timeout(function() { // timeout just for testing purpose
 		$("#wait").css("display", "none");
 		$('#show-products').show();
@@ -40,14 +46,16 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 		//Sort: default is by name
 		$scope.sortBy = 'name';
 
-		$scope.filteredItems = [], $scope.currentPage = 0, $scope.numPerPage = 9, $scope.maxSize = 5;
-
 		/* list of products from server */
 		productData.productList()
 			.success(function(data) {
 				// $scope.data = {
 				// 	products: data
 				// };
+				$('#selectItem').change(function() {
+					$scope.numPerPage = $(this).val();
+					console.log($scope.numPerPage);
+				});
 				$scope.makeItems = function() {
 					$scope.items = [];
 					for (i = 0; i < data.length; i++) {
@@ -66,6 +74,9 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 					$scope.filteredItems = $scope.items.slice(begin);
 				});
 
+				$scope.totalItemsLength=data.length;
+
+				//call distance from locationService
 				$scope.disCalc = function(storelon, storelat, disObj) {
 					return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
 
