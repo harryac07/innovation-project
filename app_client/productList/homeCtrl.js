@@ -4,7 +4,7 @@ angular
 
 
 
-function homeCtrl($scope, $location, $timeout, productData, auth, locService) { // service as parameter
+function homeCtrl($scope, $location,$window, $timeout, productData, auth, locService) { // service as parameter
 	/*Geolocation*/
 	$scope.lon2 = "";
 	$scope.lat2 = "";
@@ -16,13 +16,13 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 			$scope.lat2 = position.coords.latitude;
 
 			// show distance in home page only if geolocation is on 
-			$scope.$watch('geolocation', function() {
-				if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
-					$scope.geolocation = true;
-				} else {
-					$scope.geolocation = false;
-				}
-			});
+
+			if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
+				$scope.geolocation = true;
+			} else {
+				$scope.geolocation = false;
+			}
+
 
 		});
 	} else {
@@ -63,7 +63,6 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 					}
 				};
 				$scope.makeItems();
-				console.log($scope.items);
 
 				$scope.numberOfPages = function() {
 					return Math.ceil($scope.items.length / $scope.numPerPage);
@@ -74,14 +73,15 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 					$scope.filteredItems = $scope.items.slice(begin);
 				});
 
-				$scope.totalItemsLength=data.length;
+				$scope.totalItemsLength = data.length;
 
 				//call distance from locationService
-				$scope.disCalc = function(storelon, storelat, disObj) {
-					return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
+				if ($scope.geolocation == true) { // if geolocation is on and lat lon is provided 
+					$scope.disCalc = function(storelon, storelat, disObj) {
+						return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
 
-				};
-
+					};
+				}
 
 			})
 			.error(function(e) {
@@ -93,6 +93,28 @@ function homeCtrl($scope, $location, $timeout, productData, auth, locService) { 
 	$('#pager').click(function() {
 		$(window).scrollTop(0);
 	});
+
+	
+	/* calculate average rating of each products */
+	$scope.rating = function(product) {
+		//Calculating Average rating
+		var arr = []; // storage for ratings
+		var ratingSum = 0;
+		var actualRating = 0; // average rating
+
+		for (var i = 0; i < product.review.length; i++) {
+			arr.push(product.review[i].rating);
+		}
+
+		for (var i = 0; i < arr.length; i++) {
+			ratingSum = arr[i] + ratingSum;
+		}
+		//console.log(ratingSum);
+		actualRating = (ratingSum / arr.length) || 0;
+		$scope.actual = Math.round(actualRating * 100) / 100;
+		$scope.average = parseInt(actualRating);
+		return $scope.average;
+	};
 
 
 

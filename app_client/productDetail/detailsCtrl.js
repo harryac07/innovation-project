@@ -12,13 +12,13 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 		$scope.lat2 = position.coords.latitude;
 
 		// show distance in home page only if geolocation is on 
-		$scope.$watch('geolocation', function() {
-			if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
-				$scope.geolocation = true;
-			} else {
-				$scope.geolocation = false;
-			}
-		});
+
+		if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
+			$scope.geolocation = true;
+		} else {
+			$scope.geolocation = false;
+		}
+
 	});
 
 	$scope.productid = $routeParams.productid; // pass route params to controller 
@@ -31,7 +31,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 	$("#wait-detail").show();
 	$('#detail-body').css("display", "none");
 
-	$timeout(function() {  // timeout just for testing purpose
+	$timeout(function() { // timeout just for testing purpose
 
 		$("#wait-detail").css("display", "none");
 		$('#detail-body').show();
@@ -42,10 +42,13 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 				// $scope.dis = function(storelat, storelon) {
 				// 	return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2));
 				// };
-				$scope.distance = locService.distance(data.store[0].coords[0], data.store[0].coords[1], $scope.lon2, $scope.lat2, 1); // from locService
-				console.log($scope.lon2 + ',' + data.store[0].coords[0]);
+				
+				/*Calculate distance only if geolocation works */
+				if ($scope.geolocation == true) {
+					$scope.distance = locService.distance(data.store[0].coords[0], data.store[0].coords[1], $scope.lon2, $scope.lat2, 1); // from locService
+				}
 				//Total number of reviews
-				console.log('reviews count: ' + data.review.length);
+				
 				if (data.review.length < 4) {
 					$('#moreReview').hide();
 				}

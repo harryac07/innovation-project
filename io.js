@@ -33,8 +33,7 @@ io.on('connection', function(socket) {
 		// echo to room  that a person has connected to their room
 		socket.broadcast.to(room).emit('newclientconnect', 'SERVER: ', user + ' has connected to this room');
 		//socket.emit('updaterooms', rooms, room);
-		console.log(Object.keys(usernames).length);
-		console.log(socket.username);
+
 
 	});
 	socket.on('chat message', function(msg) {
@@ -59,6 +58,8 @@ io.on('connection', function(socket) {
 		}
 
 	});
+			console.log(Object.keys(usernames).length);
+		console.log('session usernames: '+socket.username);
 });
 
 /*

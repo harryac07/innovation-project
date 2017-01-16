@@ -13,18 +13,17 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 			$scope.lat2 = position.coords.latitude;
 
 			// show distance in home page only if geolocation is on 
-			$scope.$watch('geolocation', function() {
-				if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
-					$scope.geolocation = true;
+			if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
+				$scope.geolocation = true;
 
-					$scope.disCalc = function(storelon, storelat, disObj) {
-						return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
+				$scope.disCalc = function(storelon, storelat, disObj) {
+					return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
 
-					};
-				} else {
-					$scope.geolocation = false;
-				}
-			});
+				};
+			} else {
+				$scope.geolocation = false;
+			}
+
 
 		});
 	} else {
@@ -86,9 +85,13 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 					$scope.filteredItems = $scope.items.slice(begin);
 				});
 				/* Pagination ends here */
-				$scope.disCalc = function(storelon, storelat, disObj) {
-					return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
-				};
+
+				if ($scope.geolocation == true) { // if geolocation is on and lat lon is provided 
+					$scope.disCalc = function(storelon, storelat, disObj) {
+						return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
+
+					};
+				}
 			})
 			.error(function(e) {
 				console.log(e);

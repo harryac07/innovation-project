@@ -49,7 +49,7 @@ $(document).ready(function() {
 	if (window.localStorage['user-token']) {
 		var user = JSON.parse(window.atob(window.localStorage['user-token'].split('.')[1])).name;
 		// var room=user+Date.now(); // make unique room using date
-		
+
 		$('#chat-form').submit(function() {
 			if ($('#text').val() != '' || null) {
 				socket.emit('chat message', $('#text').val());
@@ -61,11 +61,11 @@ $(document).ready(function() {
 		});
 
 		// /* handle add user  or join event */
-		socket.emit('adduser',user);
+		socket.emit('adduser', user);
 
 		/* Handle when chat starts*/
 		socket.on('chat message', function(msg) {
-			var timestamp=moment.utc(msg.date); //
+			var timestamp = moment.utc(msg.date); //
 			$('#chat-content').prepend("<div style='border-bottom:1px solid black;margin:0'><span style='font-weight:bold;font-size:22px'>" + msg.user + "</span>" + " : " + msg.message + "<br>" + timestamp.local().format('YYYY-MM-DD, hh:mm a') + "</div>");
 		});
 		/*To broadcast*/

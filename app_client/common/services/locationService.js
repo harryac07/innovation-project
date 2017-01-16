@@ -25,7 +25,6 @@ function locService($window) {
 		function deg2rad(deg) {
 			return deg * (Math.PI / 180)
 		}
-		console.log('service distance: ' + d);
 		return d;
 	};
 	return {

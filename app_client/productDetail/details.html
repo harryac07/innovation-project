@@ -34,7 +34,7 @@
 	        	<h3 style="color:red">€ {{data.product.varient[0].sizeDetail[0].price }} </h3>
 	        	<br>
 	        	<h4> <span style="color:black">Store:</span> {{data.product.store[0].name }}, {{ data.product.store[0].address }} </h4>
-	        	<h4 ng-show="geolocation"> <span id="distance">Store: {{distance}} KM</span> </h4>
+	        	<h4 ng-show="distance"> <span id="distance">Store: {{distance}} KM</span> </h4>
 	        	<a  class="btn btn-default"style=";color:black;font-weight:bold;text-decoration:none" href="/#/store/{{data.product.store[0]._id}}"><strong>Store Details</strong></a>
 	        	<h5 style="color:green"> <span style="color:green">Available :</span> {{ data.product.varient[0].sizeDetail[0].available }} </h5>
 			</div>

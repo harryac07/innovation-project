@@ -54,10 +54,10 @@ userSchema.methods.generateJwt = function() {
 		email: this.email,
 		name: this.name,
 		admin: this.admin,
-		verifyToken: this.verifyToken,
-		tokenExpiryTime:this.tokenExpiryTime,
-		verified: this.verified,
-		resetPwdExpire:this.resetPwdExpire,
+		// verifyToken: this.verifyToken,
+		// tokenExpiryTime:this.tokenExpiryTime,
+		// verified: this.verified,
+		// resetPwdExpire:this.resetPwdExpire,
 		exp: parseInt(expiry.getTime() / 1000)
 	}, process.env.JWT_SECRET);
 };

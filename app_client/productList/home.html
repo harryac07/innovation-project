@@ -47,34 +47,26 @@
 		</div>
 		
 		<div class="row" style="display: flex;flex-wrap: wrap;" id="test-product">
-		        <div id="product-div" class="jumbotron col-sm-4 col-md-4 col-xs-12 text-center" style=";border:8px solid #fff;padding:10px;line-height:0.9em;overflow: hidden;display: flex;flex-direction: column;" ng-init="distance=disCalc(product.store[0].coords[0],product.store[0].coords[1],product)" ng-repeat="product in filteredItems| filter:search| limitTo:numPerPage| orderBy : sortBy" >
+		        <div id="product-div" class="jumbotron col-sm-4 col-md-4 col-xs-12 text-center" style=";border:8px solid #fff;padding:10px;line-height:0.9em;overflow: hidden;display: flex;flex-direction: column;" ng-init="distance=disCalc(product.store[0].coords[0],product.store[0].coords[1],product); ratings=rating(product)"  ng-repeat="product in filteredItems| filter:search| limitTo:numPerPage| orderBy : sortBy" >
 
 		            <a id="detail-link" href="/#/product/{{product._id}}"><img src ="{{product.image}}" height="180px" width="100%"></a>
 		            <h3 style="color:black">{{product.name}}</h3>
-		            <p>{{product.store[0].name}}</p>
 		            <p>€ {{ product.varient[0].sizeDetail[0].price }}</p>
-		            <p style="color:black;font-size:17px" ng-show="geolocation"> Store distance: <span style="color:red">{{distance}} KM</span></p>
-		            </p>
+					<h4 style="color:black">
+						<span class="glyphicon glyphicon-star{{ ratings<1 ? '-empty' : ''}}" style="color:#c63939"></span>
+						<span class="glyphicon glyphicon-star{{ ratings<2 ? '-empty' : ''}}" style="color:#c63939"></span>
+						<span class="glyphicon glyphicon-star{{ ratings<3 ? '-empty' : ''}}" style="color:#c63939"></span>
+						<span class="glyphicon glyphicon-star{{ ratings<4 ? '-empty' : ''}}" style="color:#c63939"></span>
+						<span class="glyphicon glyphicon-star{{ ratings<5 ? '-empty' : ''}}" style="color:#c63939"></span>
+					</h4>
+		            <p>{{product.store[0].name}}<span style="color:black;font-size:16px" ng-show="distance"> : {{distance}} KM</span></p>
 		        </div>
 		    
 		</div>
-<!-- 		<div style="display:inline-block;position: absolute;bottom:2px;color:black;padding:10px" id="pager-bottom">
-			<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
-	        	First
-	    	</button>
-	    	<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-	        	<i class="fa fa-angle-double-left" aria-hidden="true"></i>
-	    	</button>
-	    		<button class="btn btn-default">{{currentPage+1}}/{{numberOfPages()}}</button>
-		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=currentPage+1">
-		        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-		    </button>
-		    <button class="btn btn-default" ng-disabled="currentPage >= items.length/numPerPage - 1" ng-click="currentPage=numberOfPages()-1">
-	        	Last
-	    	</button>
-		</div> -->
+
 	</div>
 </div>
+
 
 
 

@@ -33,7 +33,7 @@ module.exports.register = function(req, res) {
 	}
 	user.setPassword(req.body.password); // use setPassword method to set salt and hash
 
-	user.save(function(err) {m0
+	user.save(function(err) {
 		var token;
 		if (err) {
 			sendJSONresponse(res, 400, err);
