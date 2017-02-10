@@ -7,19 +7,35 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 	$scope.lon2 = "";
 	$scope.lat2 = "";
 
-	navigator.geolocation.getCurrentPosition(function(position) {
-		$scope.lon2 = position.coords.longitude;
-		$scope.lat2 = position.coords.latitude;
+	if (typeof(localStorage) != "undefined") { // if localStorage is not set, set it to stotre lat and lon
 
-		// show distance in home page only if geolocation is on 
+		navigator.geolocation.getCurrentPosition(function(position) {
+			$scope.lon2 = position.coords.longitude;
+			$scope.lat2 = position.coords.latitude;
 
-		if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
+			localStorage.setItem('latitude', position.coords.latitude); // store in localStorage
+			localStorage.setItem('longitude', position.coords.longitude);
+
+			// compare current location and localStorage location 
+			if ($scope.lon2 != localStorage.getItem('longitude')) {
+				localStorage.removeItem('latitude');
+				localStorage.removeItem('longitude');
+			}
+
+
+		});
+
+
+		if (!(localStorage.getItem('longitude') == "undefined")) {
 			$scope.geolocation = true;
 		} else {
 			$scope.geolocation = false;
 		}
+		console.log(localStorage.getItem('latitude'));
+		console.log(localStorage.getItem('longitude'));
 
-	});
+	}
+
 
 	$scope.productid = $routeParams.productid; // pass route params to controller 
 	$scope.header = {
@@ -45,7 +61,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 				
 				/*Calculate distance only if geolocation works */
 				if ($scope.geolocation == true) {
-					$scope.distance = locService.distance(data.store[0].coords[0], data.store[0].coords[1], $scope.lon2, $scope.lat2, 1); // from locService
+					$scope.distance = locService.distance(data.store[0].coords[0], data.store[0].coords[1], localStorage.getItem('longitude'), localStorage.getItem('latitude'), 1); // from locService
 				}
 				//Total number of reviews
 				
@@ -69,6 +85,10 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 			});
 
 		//review submit 
+		$scope.formData={
+			rating:"",
+			reviewText:""
+		};
 		$scope.onSubmit = function() {
 			$scope.formError = "";
 			if (!$scope.formData.rating || !$scope.formData.reviewText) {

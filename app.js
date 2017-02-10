@@ -17,6 +17,22 @@ var routesApi = require('./app_api/routes/index');
 
 var app = express();
 
+//force use of https for production level 
+var https_redirect = function(req, res, next) {
+  if (process.env.NODE_ENV === 'production') {
+    if (req.headers['x-forwarded-proto'] != 'https') {
+      return res.redirect('https://' + req.headers.host + req.url);
+    } else {
+      return next();
+    }
+  } else {
+    return next();
+  }
+};
+
+app.use(https_redirect);
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'ejs');

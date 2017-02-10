@@ -57,7 +57,7 @@ module.exports.register = function(req, res) {
 			//var text1 = 'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n';
 
 			var message = 'Hello ' + req.body.name + ',\n\n' + 'Welcome to ProFinder. Please verify account and become our true customer. The verification link is right below, click it and you are all set.\n\n' +
-				'http://' + req.headers.host + '/#/verify/' + linkToken + '\n\n\nProFinder Team';
+				'https://' + req.headers.host + '/#/verify/' + linkToken + '\n\n\nProFinder Team';
 			mailOptions = {
 				from: 'harryac007@gmail.com', // sender address
 				to: req.body.email, // list of receivers
@@ -312,7 +312,6 @@ module.exports.facebookLogin = function(req, res) {
 		if (user && user.verified === true) {
 			token = user.generateJwt();
 			res.redirect('/#/facebook/' + token);
-			console.log(' token: ' + token);
 		} else {
 			sendJSONresponse(res, 401, info);
 		}

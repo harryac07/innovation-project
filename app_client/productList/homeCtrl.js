@@ -4,30 +4,41 @@ angular
 
 
 
-function homeCtrl($scope, $location,$window, $timeout, productData, auth, locService) { // service as parameter
+function homeCtrl($scope, $location, $window, $timeout, productData, auth, locService) { // service as parameter
 	/*Geolocation*/
 	$scope.lon2 = "";
 	$scope.lat2 = "";
 
-	if (navigator.geolocation) {
+
+	if (typeof(localStorage) != "undefined") { // if localStorage is not set, set it to stotre lat and lon
 
 		navigator.geolocation.getCurrentPosition(function(position) {
 			$scope.lon2 = position.coords.longitude;
 			$scope.lat2 = position.coords.latitude;
 
-			// show distance in home page only if geolocation is on 
+			localStorage.setItem('latitude', position.coords.latitude); // store in localStorage
+			localStorage.setItem('longitude', position.coords.longitude);
+			console.log(localStorage.getItem('longitude') + ';' + $scope.lon2);
 
-			if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
-				$scope.geolocation = true;
-			} else {
-				$scope.geolocation = false;
+			// compare current location and localStorage location 
+			if ($scope.lon2 != localStorage.getItem('longitude')) {
+				localStorage.removeItem('latitude');
+				localStorage.removeItem('longitude');
 			}
 
 
 		});
-	} else {
-		console.log("Geolocation is not supported by this browser.");
-	} /* .geolocation ends here */
+
+
+		if (!(localStorage.getItem('longitude') == "undefined")) {
+			$scope.geolocation = true;
+		} else {
+			$scope.geolocation = false;
+		}
+		console.log(localStorage.getItem('latitude'));
+		console.log(localStorage.getItem('longitude'));
+
+	}
 
 
 	$("#wait").show(); // wait page to load. set timeout function called
@@ -78,7 +89,7 @@ function homeCtrl($scope, $location,$window, $timeout, productData, auth, locSer
 				//call distance from locationService
 				if ($scope.geolocation == true) { // if geolocation is on and lat lon is provided 
 					$scope.disCalc = function(storelon, storelat, disObj) {
-						return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
+						return (locService.distance(storelon, storelat, localStorage.getItem('longitude'), localStorage.getItem('latitude'), disObj));
 
 					};
 				}
@@ -94,7 +105,7 @@ function homeCtrl($scope, $location,$window, $timeout, productData, auth, locSer
 		$(window).scrollTop(0);
 	});
 
-	
+
 	/* calculate average rating of each products */
 	$scope.rating = function(product) {
 		//Calculating Average rating
@@ -115,22 +126,5 @@ function homeCtrl($scope, $location,$window, $timeout, productData, auth, locSer
 		$scope.average = parseInt(actualRating);
 		return $scope.average;
 	};
-
-
-
-	// var key = " ";
-	// $('#search').keypress(function(e) {
-	// 	key = $('#search').val();
-	// 	console.log('search home: ' + key);
-
-	// 	productData.productSearch(key)
-	// 		.success(function(data) {
-	// 			$scope.items=data;
-	// 		})
-	// 		.error(function(e) {
-	// 			console.log(e);
-	// 		});
-	// 	$route.reload();
-	// });
 
 }

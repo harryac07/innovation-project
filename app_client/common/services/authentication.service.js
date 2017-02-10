@@ -34,7 +34,7 @@ function auth($http, $window, $location) {
 			};
 		}
 	};
-	register = function(user) {
+	var register = function(user) {
 		return $http.post('/api/register', user).success(function(data) {
 			// saveToken(data.token);
 		});
@@ -42,26 +42,27 @@ function auth($http, $window, $location) {
 	var verify = function(token) {
 		return $http.get('/api/verify/' + token);
 	};
-	var resetPassword=function(data){ // to send the link to email
-		return $http.post('/api/forgotPwd',data).success(function(data) {
+	var resetPassword = function(data) { // to send the link to email
+		return $http.post('/api/forgotPwd', data).success(function(data) {
 			// saveToken(data.token);
 		});
 	};
-	var changePassword=function(token,data){
-		return $http.post('/api/resetpassword/'+token,data);
+	var changePassword = function(token, data) {
+		return $http.post('/api/resetpassword/' + token, data);
 	};
 
-	login = function(user) {
+	var login = function(user) {
 		return $http.post('/api/login', user).success(function(data) {
 
 			saveToken(data.token);
 		});
 	};
 
-	logout = function() {
+	var logout = function() {
 		$window.localStorage.removeItem('user-token');
 	};
-	facebookLogin = function(token) {// save the token when logged in with facebook
+
+	var facebookLogin = function(token) {// save the token when logged in with facebook
 		saveToken(token);
 
 	};
@@ -76,8 +77,8 @@ function auth($http, $window, $location) {
 		login: login,
 		logout: logout,
 		facebookLogin: facebookLogin,
-		resetPassword:resetPassword,
-		changePassword:changePassword
+		resetPassword: resetPassword,
+		changePassword: changePassword
 	};
 
 }

@@ -1,29 +1,28 @@
     <div class="col-sm-9" style="">
-        <div id="login" style="">
-        	<h3>Not registered yet? 
-                <a href="/#/register" class="btn btn-default" style="font-weight:bold">
-                    <i style="padding-right:8px;color:#1E90FF" class="fa fa-sign-in" aria-hidden="true">
+        <div id="login">
+            <h3>Not registered yet? 
+                <a href="/#/register" class="btn btn-success" style="font-weight:bold">
+                    <i style="padding-right:8px;color:#fff" class="fa fa-sign-in" aria-hidden="true">
                     </i>Register
                 </a>
             </h3>
-        	<div class="alert alert-danger" ng-show="formError">{{formError}}</div>
-        	<div class="well">
-    	    	<form class="form-horizontal" ng-submit="onSubmit()">
-    		        <div class="form-group">
-    		            <label><b>Email</b></label>
-    		            <input type="email" class="form-control" ng-model="credentials.email"   name="email">
-
-    		            <label><b>Password</b></label>
-    		            <input type="password" class="form-control" ng-model="credentials.password"  name="psw">
-    		            
-    		            <button type="submit" class="btn btn-primary">Login</button>
-    		            <span style="float: right;padding-top: 16px;">Forgot <a href="/#/reset">password?</a></span>
-    		        </div>
-    	    	</form>
-        	</div>
+            <div class="alert alert-danger" ng-show="formError">{{formError}}</div>
             <div class="well">
-        		<h4>Login with Facebook</h4>
-        		<a id="facebook-login" href='/api/auth/facebook' class="btn btn-primary"><span style="padding-right:5px" class="fa fa-facebook"></span> Login</a>
-        	</div>
+                <form class="form-horizontal" ng-submit="onSubmit()">
+                    <div class="form-group" style="width:100%;padding-left:30px">
+                        <label><b>Email</b></label>
+                        <input type="email" class="form-control" ng-model="credentials.email"   name="email">
+
+                        <label><b>Password</b></label>
+                        <input type="password" class="form-control" ng-model="credentials.password"  name="psw">
+                        
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <span style="float: right;padding-top: 16px;">Forgot <a href="/#/reset">password?</a></span>
+                    </div>
+                </form>
+                <hr>
+                <h4>Login with Facebook</h4>
+                <a id="facebook-login" href='/api/auth/facebook' class="btn btn-primary"><span style="padding-right:5px" class="fa fa-facebook"></span> Login</a>
+            </div>
         </div>
     </div>

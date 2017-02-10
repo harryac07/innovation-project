@@ -7,13 +7,36 @@ function storeDetailCtrl($scope, $routeParams, $timeout, $window, productData, l
 	$scope.go_back = function() { // for back to previous page
 		$window.history.back();
 	};
-	navigator.geolocation.getCurrentPosition(function(position) {
-		var pos = {
-			lat: position.coords.latitude,
-			lng: position.coords.longitude
-		};
-		console.log(pos.lat + ':::' + pos.lng);
-	});
+
+	if (typeof(localStorage) != "undefined") { // if localStorage is not set, set it to stotre lat and lon
+
+		navigator.geolocation.getCurrentPosition(function(position) {
+			$scope.pos = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
+			// compare current location and localStorage location 
+			if ($scope.pos.lng != localStorage.getItem('longitude')) {
+				localStorage.removeItem('latitude');
+				localStorage.removeItem('longitude'); // remove first and then.....
+
+				localStorage.setItem('latitude', position.coords.latitude); // store in localStorage
+				localStorage.setItem('longitude', position.coords.longitude);
+			}
+
+
+
+		});
+
+
+		if (!(localStorage.getItem('longitude') == "undefined")) {
+			$scope.geolocation = true;
+		} else {
+			$scope.geolocation = false;
+		}
+	}
+
+
 	var arr = [];
 
 	$scope.storeid = $routeParams.storeid;
@@ -35,7 +58,7 @@ function storeDetailCtrl($scope, $routeParams, $timeout, $window, productData, l
 	$scope.mapinit = function() {
 		console.log(arr);
 		$timeout(function() {
-			var pointA = new google.maps.LatLng(60.2079, 24.66), // user lat lng
+			var pointA = new google.maps.LatLng(localStorage.getItem('latitude'), localStorage.getItem('longitude')), // user lat lng
 				pointB = new google.maps.LatLng(arr[0], arr[1]), // store lat lng
 				myOptions = {
 					zoom: 7,
@@ -83,7 +106,7 @@ function storeDetailCtrl($scope, $routeParams, $timeout, $window, productData, l
 					distance += parseFloat(response.routes[0].legs[i].distance.text);
 					//for each 'leg'(route between two waypoints) we get the distance and add it to the total
 				}
-				console.log('this is distance: '+distance);
+				console.log('this is distance: ' + distance);
 				// Display the distance:
 				$('#distance').text('Distance from you: ' + distance + ' KM  ( ' + selectedMode.toLowerCase() + ')');
 				// display time to travel

@@ -6,30 +6,31 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 	$scope.lon2 = "";
 	$scope.lat2 = "";
 
-	if (navigator.geolocation) {
+	if (typeof(localStorage) != "undefined") { // if localStorage is not set, set it to stotre lat and lon
 
 		navigator.geolocation.getCurrentPosition(function(position) {
 			$scope.lon2 = position.coords.longitude;
 			$scope.lat2 = position.coords.latitude;
 
-			// show distance in home page only if geolocation is on 
-			if (!($scope.lon2 === undefined || $scope.lat2 === undefined)) {
-				$scope.geolocation = true;
+			localStorage.setItem('latitude', position.coords.latitude); // store in localStorage
+			localStorage.setItem('longitude', position.coords.longitude);
 
-				$scope.disCalc = function(storelon, storelat, disObj) {
-					return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
-
-				};
-			} else {
-				$scope.geolocation = false;
+			// compare current location and localStorage location 
+			if ($scope.lon2 != localStorage.getItem('longitude')) {
+				localStorage.removeItem('latitude');
+				localStorage.removeItem('longitude');
 			}
 
 
 		});
-	} else {
-		console.log("Geolocation is not supported by this browser.");
-	} /* .geolocation ends here */
 
+
+		if (!(localStorage.getItem('longitude') == "undefined")) {
+			$scope.geolocation = true;
+		} else {
+			$scope.geolocation = false;
+		}
+	}
 
 	$("#wait").show();
 	$('#show-products').css("display", "none");
@@ -41,25 +42,7 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 
 		$('#search').show();
 		$scope.categoryName = $routeParams.categoryName.toLowerCase(); // pass route params to controller 
-		// var key = " ";
 
-		// $('#search').keypress(function(e) { // if enter is hit 
-		// 	if (e.which === 13) {
-		// 		key = $('#search').val();
-		// 		console.log('search home: ' + key);
-
-		// 		productData.productSearch(key)
-		// 			.success(function(data) {
-		// 				$scope.data = {
-		// 					store: data
-		// 				};
-		// 			})
-		// 			.error(function(e) {
-		// 				console.log(e);
-		// 			});
-		// 		$route.reload();
-		// 	}
-		// });
 		$scope.filteredItems = [], $scope.currentPage = 0, $scope.numPerPage = 9, $scope.maxSize = 5;
 		productData.productByCategory($scope.categoryName)
 			.success(function(data) {
@@ -88,7 +71,7 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 
 				if ($scope.geolocation == true) { // if geolocation is on and lat lon is provided 
 					$scope.disCalc = function(storelon, storelat, disObj) {
-						return (locService.distance(storelon, storelat, $scope.lon2, $scope.lat2, disObj));
+						return (locService.distance(storelon, storelat, localStorage.getItem('longitude'), localStorage.getItem('latitude'), disObj));
 
 					};
 				}

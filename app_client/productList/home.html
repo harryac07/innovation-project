@@ -7,6 +7,8 @@
 	</div>
 	<div id="show-products">
 		<div class="row">
+
+			<!-- sort items  -->
 			<div class="dropdown col-sm-4 col-xs-6" style="display:inline;color:black">
 			    <button  class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort by: {{sortTitle}}
 			    <span class="caret"></span></button>
@@ -19,6 +21,7 @@
 			        <li><a href="" ng-click="sortBy='dis' ; sortTitle='distance'">Best Location</a></li>
 			    </ul>
 			</div>
+			<!-- items per page display-->
 			<div class="col-sm-4 col-xs-6">
 				<select id="selectItem"  ng-init="numPerPage=9"ng-model="numPerPage" style="color:black;height:32px;padding-top:3px;padding-bottom:4px;text-align:center">
 				      <option value="6" >Items Per Page:  6</option>
@@ -28,7 +31,8 @@
 				      <option value="{{totalItemsLength}}" >Items Per Page:  all</option>
 				    </select>
 			</div>
-		
+
+			<!-- pager -->
 			<div style="display:inline;position: absolute; right:0; padding-right:20px;color:black" id="pager" class="col-sm-4 col-xs-12">
 				<button class="btn btn-default" ng-disabled="currentPage == 0" ng-click="currentPage=0">
 		        	First

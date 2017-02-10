@@ -27,7 +27,6 @@
       border: 0;
       font-size: 12px !important;
       line-height: 1.42857143 !important;
-      letter-spacing: 4px;
       border-radius: 0;
       font-family: Montserrat, sans-serif;
   }
@@ -129,6 +128,9 @@ color: black !important;
     .col-sm-10 {
         padding:0px;
     }
+    #products-post{
+      width:90%;
+    }
 }
 @media screen and (min-width: 1050px) { /*// for laptop and pcs*/
     .col-sm-10 {
@@ -148,6 +150,11 @@ color: black !important;
     #register{
       padding-left: 40px;
       padding-right: 80px;
+    }
+    #products-post{
+      padding:30px 20px 30px 20px;
+      margin-top: 30px;
+      width:70%;
     }
 }
 #chat-content{
@@ -224,15 +231,12 @@ color: black !important;
       font-size: 13px;
     }
 
+
 }
 textarea {
    resize: none;
 }
-#products-post{
-  padding:30px 20px 30px 20px;
-  margin-top: 30px;
-  width:70%;
-}
+
 #post-well{
   border: 2px solid #000;
 }

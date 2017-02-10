@@ -35,7 +35,7 @@
 	        	<br>
 	        	<h4> <span style="color:black">Store:</span> {{data.product.store[0].name }}, {{ data.product.store[0].address }} </h4>
 	        	<h4 ng-show="distance"> <span id="distance">Store: {{distance}} KM</span> </h4>
-	        	<a  class="btn btn-default"style=";color:black;font-weight:bold;text-decoration:none" href="/#/store/{{data.product.store[0]._id}}"><strong>Store Details</strong></a>
+	        	<a  class="btn btn-danger"style="text-decoration:none" href="/#/store/{{data.product.store[0]._id}}"><strong>Store Details</strong></a>
 	        	<h5 style="color:green"> <span style="color:green">Available :</span> {{ data.product.varient[0].sizeDetail[0].available }} </h5>
 			</div>
 		</div>
@@ -48,33 +48,21 @@
 				<ul class="nav nav-tabs">
 				    <li class="active"><a data-toggle="tab" data-target="#detail">Product Details</a></li>
 				    <li><a data-toggle="tab" data-target="#available">Check Availibility</a></li>
-				    <li><a data-toggle="tab" data-target="#faq">FAQ</a></li>
 				</ul>
 
 				<div class="tab-content">
 				    <div id="detail" class="tab-pane fade in active">
 				      <br>
-				      <p ng-bind-html="content"></p>
+				      <p style="font-size:18px" ng-bind-html="content"></p>
 				    </div>
 				    <div id="available" class="tab-pane fade">
 				      <br>
-				      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-				    </div>
-				    <div id="faq" class="tab-pane fade">
-				      <br>
-				      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+				      <p style="font-size:18px"> The item is avaible in various stores. We are showing you only available products.</p>
 				    </div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 col-sm-12">
-				<p id="lat" style="display:none">{{ data.product.store[0].coords[1] }}</p>
-				<p id="lon" style="display:none">{{ data.product.store[0].coords[0] }}</p>
-				<h2><span style="color:black">Terms & Conditions:</span> <span id="test"></span></h2>
-
-				
-			</div>
 			<div class="review col-sm-12 col-xs-12">
 			  <button type="button" ng-show="isLoggedIn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#reviewModel">Add Review</button>
 			  <a style="text-decoration: none" ng-hide="isLoggedIn" class="btn btn-info btn-lg" href="/#/login">Login to add review</a>
@@ -109,6 +97,24 @@
 			  	<a id="moreReview" ng-click="count = limit" ng-init="count=4"  type="button">More Review...</a>
 
 			  </div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12"><!-- terms and conditions -->
+				<p id="lat" style="display:none">{{ data.product.store[0].coords[1] }}</p>
+				<p id="lon" style="display:none">{{ data.product.store[0].coords[0] }}</p>
+				<h2><span style="color:black;text-decoration: underline; ">Terms & Conditions:</span></h2>
+					<h3 style="color:black">When listing an item, you agree to comply with our rules for listing and Selling Practices 	policy and that:</h3>
+						<ul style="color:black;font-size:20px">
+							<li>You are responsible for the accuracy and content of the listing and item offered</li>
+							<li>Your listing may not be immediately searchable by keyword or category for several hours (or up to 24 hours in some circumstances). We can't guarantee exact listing durations</li>
+							<li>Content that violates any of our policies may be deleted</li>
+							<li>To drive a positive user experience, a listing may not appear in some search and browse results regardless of the sort order chosen by the buyer</li>
+							<li>Some advanced listing upgrades will only be visible on certain Services.</li>
+						</ul>
+				
+				<p>This User Agreement, the User Privacy Notice, the Mobile Devices Terms, and all policies posted on our sites set out the terms on which we offer you access to and use of our sites, services, applications and tools (collectively "Services"). You can find an overview of our policies here. All policies, the Mobile Devices Terms, and the User Privacy Notice are incorporated into this User Agreement. You agree to comply with all of the above when accessing or using our Services.</p>
+
+				
 			</div>
 			  <!-- Modal -->
 			  <div class="modal fade" id="reviewModel" role="dialog" style="margin-top:40px">

@@ -2,8 +2,8 @@
     	<div id="register">
 
     			<h3>Have an account? 
-					<a href="/#/login"class="btn btn-default" style="font-weight:bold">
-						<i style="padding-right:8px;color:#1E90FF" class="fa fa-sign-in" aria-hidden="true">
+					<a href="/#/login"class="btn btn-success" style="font-weight:bold">
+						<i style="padding-right:8px;color:#fff" class="fa fa-sign-in" aria-hidden="true">
 						</i>Login
 					</a>
 				</h3>
@@ -11,8 +11,8 @@
 	    	<div id="warning"></div>
 
 	    	<div class="well">
-		    	<form class="form-horizontal" ng-submit="onSubmit()">
-			        <div class="form-group">
+		    	<form class="form-horizontal"  ng-submit="onSubmit()" >
+			        <div class="form-group" style="width:100%;padding-left:30px">
 			        	<label><b>Name</b></label>
 			            <input type="text" class="form-control" ng-model="credentials.name"  name="name" required>
 			            <label><b>Email</b></label>
@@ -24,8 +24,7 @@
 			            <button type="submit" class="btn btn-primary">Register</button>
 			        </div>
 		    	</form>
-	    	</div>
-            <div class="well">
+		    	<hr>
         		<h4>Login with Facebook</h4>
         		<a id="facebook-login" href='/api/auth/facebook' class="btn btn-primary"><span style="padding-right:5px" class="fa fa-facebook"></span>Login</a>
         	</div>
