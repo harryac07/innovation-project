@@ -54,12 +54,6 @@
 
 
   }
-  #accordion a{ 
-    text-decoration:none;
-    display: inline-block;
-    color:black;
-
-  }
 input[type="text"] {
     font-family: FontAwesome;
     font-size: 25px;
@@ -132,13 +126,15 @@ color: black !important;
       width:90%;
     }
 }
-@media screen and (min-width: 1050px) { /*// for laptop and pcs*/
+@media screen and (min-width: 1020px) { /*// for laptop and pcs*/
+    #category{
+      height: 700px;
+      border-right:1px solid #632927;
+    }
     .col-sm-10 {
         padding-left:50px;
     }
-    #search{
-      width: 40%;
-    }
+
     #pager-bottom{
       visibility: hidden;
       display: none;
@@ -193,16 +189,14 @@ color: black !important;
 }
 
 @media only screen and (max-width: 600px) {
-    #search{
-      width: 100%;
-    }
+
     #chat{
       display: none;
       visibility: hidden;
     }
     .col-xs-12{
-      padding-left:20px;
-      padding-right: 20px;
+      padding-left:0px;
+      padding-right: 0px;
     }
     #nav-dropdown li a{
       width: 80%;
@@ -230,7 +224,15 @@ color: black !important;
     #show-products .dropdown{
       font-size: 13px;
     }
+    .w3-content{
+      height: 100px;
+    }
+    .mySlides {display:none;width:100%;height:200px}
 
+    #floating-panel{
+      margin-top:345px;
+      left:0;
+    }
 
 }
 textarea {
@@ -255,6 +257,27 @@ textarea {
 .list-unstyled li:hover a{ 
   color:#fff !important;
 
+}
+#hr-featured{
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+    width: 80%;
+}
+.nav-tabs > li.active > a{
+  background-color:#632927;
+  color: white;
+}
+.nav-tabs  > li > a:hover{
+  background-color: gray;
+  color: white;
+}
+.nav-tabs  > li {
+  border: 1px solid black;
 }
 
 /* hide chat div*/

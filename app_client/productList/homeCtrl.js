@@ -18,7 +18,6 @@ function homeCtrl($scope, $location, $window, $timeout, productData, auth, locSe
 
 			localStorage.setItem('latitude', position.coords.latitude); // store in localStorage
 			localStorage.setItem('longitude', position.coords.longitude);
-			console.log(localStorage.getItem('longitude') + ';' + $scope.lon2);
 
 			// compare current location and localStorage location 
 			if ($scope.lon2 != localStorage.getItem('longitude')) {
@@ -30,13 +29,11 @@ function homeCtrl($scope, $location, $window, $timeout, productData, auth, locSe
 		});
 
 
-		if (!(localStorage.getItem('longitude') == "undefined")) {
+		if (localStorage.getItem('longitude')) {
 			$scope.geolocation = true;
 		} else {
 			$scope.geolocation = false;
 		}
-		console.log(localStorage.getItem('latitude'));
-		console.log(localStorage.getItem('longitude'));
 
 	}
 
@@ -65,7 +62,6 @@ function homeCtrl($scope, $location, $window, $timeout, productData, auth, locSe
 				// };
 				$('#selectItem').change(function() {
 					$scope.numPerPage = $(this).val();
-					console.log($scope.numPerPage);
 				});
 				$scope.makeItems = function() {
 					$scope.items = [];
@@ -126,5 +122,12 @@ function homeCtrl($scope, $location, $window, $timeout, productData, auth, locSe
 		$scope.average = parseInt(actualRating);
 		return $scope.average;
 	};
+
+	/* selectItem-div number display per page  */
+		setTimeout(function() {
+			$('#selectItem').show();
+		}, 1000);
+
+
 
 }

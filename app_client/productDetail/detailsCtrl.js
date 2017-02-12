@@ -26,13 +26,11 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 		});
 
 
-		if (!(localStorage.getItem('longitude') == "undefined")) {
+		if (localStorage.getItem('longitude')) {
 			$scope.geolocation = true;
 		} else {
 			$scope.geolocation = false;
 		}
-		console.log(localStorage.getItem('latitude'));
-		console.log(localStorage.getItem('longitude'));
 
 	}
 
@@ -148,6 +146,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 		$('#productShare').click(function() {
 			$('#text').val($window.location.href);
 		});
+
 
 	});
 

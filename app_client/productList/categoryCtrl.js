@@ -25,7 +25,7 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 		});
 
 
-		if (!(localStorage.getItem('longitude') == "undefined")) {
+		if (localStorage.getItem('longitude')) {
 			$scope.geolocation = true;
 		} else {
 			$scope.geolocation = false;
@@ -57,7 +57,6 @@ function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
 					}
 				};
 				$scope.makeItems();
-				console.log($scope.items);
 
 				$scope.numberOfPages = function() {
 					return Math.ceil($scope.items.length / $scope.numPerPage);

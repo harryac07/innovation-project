@@ -61,106 +61,150 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzwiJZXDlrg2qWL1pNf4cSnA-DQ7t0yBU">
     </script>
-  
+  <style>
+      .mySlides {display:none;width:100%;height:500px}
+      .img-text {
+          position: absolute;
+          top: 50%;
+          left: 70%;
+          transform: translate(-50%, -50%);
+          
+      }
+      #search{
+        margin-top: 20px;
+        height:45px;
+        border:2px solid black;
+        width:400px
+      }
+
+      @media only screen and (max-width: 700px) {
+          .mySlides {
+              height: 250px;
+              width: 100%;
+              margin-top: 30px;
+          }
+          .img-text {
+              position: absolute;
+              top: 20%;
+              text-align: center;
+              left: 50%;
+              
+          }
+          #search{
+              margin-top: 10px;
+              height:45px;
+              border:2px solid black;
+              width:300px
+          }
+
+      }
+        @media only screen and (max-width: 399px)and (min-width: 300px) {
+          .img-text {
+              position: absolute;
+              top: 25%;
+              text-align: center;
+              left: 50%;
+              
+          }
+          #search{
+              margin-top: 10px;
+              height:45px;
+              border:2px solid black;
+              width:300px
+          }
+          #main-container{
+              margin-top: 150px;
+          }
+          #selectItem{
+            display: none;
+            visibility: hidden;
+          }
+      }
+      @media only screen and (max-width: 599px)and (min-width: 400px) {
+          .img-text {
+              position: absolute;
+              top: 22%;
+              text-align: center;
+              left: 50%;
+              
+          }
+          #search{
+              margin-top: 10px;
+              height:45px;
+              border:2px solid black;
+              width:300px
+          }
+          #main-container{
+              margin-top: 150px;
+          }
+          #selectItem{
+            display: none;
+            visibility: hidden;
+          }
+      }
+
+      @media only screen and (max-width: 800px) and (min-width: 600px) {
+          .img-text {
+              position: absolute;
+              top:20%;
+              text-align: center;
+              left: 50%;
+              
+          }
+          #search{
+              margin-top: 10px;
+              height:45px;
+              border:2px solid black;
+              width:300px
+          }
+      }
+  </style>
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 <navigation></navigation> <!-- get directives from app_client/common-->
 
-<div class="well" style="margin-bottom:0px;border-bottom:1px solid gray" >
+<div class="well container" style="margin-bottom:0px;border-bottom:3px solid #632927;width:100% !important" >
 
-    <div class="text-center" >
+      <div class="w3-content" style="width:100%;">
+          <img class="mySlides" src="/images/earphone.jpg" >
+          <div class="img-text">
+              <h1 style="color:red;font-weight:bold;text-shadow:2px 3px black">Find All Gadgets here</h1>
+              <a class="btn btn-primary" href="">Choose your best</a>
+              <div style="" id="search-div">
+                  <form class="form-inline">
+                    <input id="search" ng-model="search" type="text" name="search" class="form-control" size="50"  placeholder="&#xf002;    Search here..." autocomplete="off">
+                        
+                  </form>
 
-        <form class="form-inline" style="margin-top:40px">
-          <input id="search" ng-model="search" type="text" name="search" class="form-control" size="50"  placeholder="&#xf002;    Search here..." style="height:50px;border:2px solid black;" autocomplete="off">
-              
-        </form>
+              </div>
+          </div>
+          <img class="mySlides" src="/images/mac.jpg">
+          <img class="mySlides" src="/images/gadget.jpg">
+      </div>
 
-    </div>
-</div>
+  </div>
 
-<div id="products" class="container-fluid"> <!--container starts-->
-    <div class="row" style="">
+<div id="main-container" class="container-fluid"> <!--container starts-->
+    <div class="row" style="padding-right:40px;padding-left:40px">
         <!--Categories rows-->
 
-        <div class="col-sm-3" style="">
-            <h3 class="text-center" style="color:#8A3F3C">Categories</h3>
-            <hr style="border:1px solid gray">
-            <div id="accordion">
-                <h3>Phones & GPS</h3>
-                <div>
-                    <ul class="list-unstyled">
-                        <li><a href="/#/product/category/phone">Smart Phones</a></li>
-                        <li><a href="">Phones Accessories</a></li>
-                        <li><a href="">Smart Watches</a></li>
-                        <li><a href="">GPS Devices</a></li>
-                        <li><a href="/#/product/category/mobilecase">Phone Cases</a></li>
-                    </ul>
-                </div>
-                <h3>Computers</h3>
-                <div>
-                    <ul class="list-unstyled">
-                        <li><a href="/#/product/category/laptop">Laptops</a></li>
-                        <li><a href="">Tablets & Ipads</a></li>
-                        <li><a href="/#/product/category/desktop">Desktop Computer</a></li>
-                        <li><a href="">Laptop Bags</a></li>
-                        <li><a href="">Computer Accessories</a></li>
-                    </ul>
-                </div>
-                <h3>Cameras</h3>
-                <div>
-                    <ul class="list-unstyled">
-                        <li><a href="/#/product/category/camera">Digital Camera</a></li>
-                        <li><a href="/#/product/category/camera">SLR Camera</a></li>
-                        <li><a href="/#/product/category/camera">Video Camera</a></li>
-                        <li><a href="/#/product/category/camera">Action Camera</a></li>
-                        <li><a href="">Camera Lenses</a></li>
-                        <li><a href="">Camera Accessories</a></li>
-                    </ul>
-                </div>
-
-                <h3>Audio & Video</h3>
-                <div>
-                    <ul class="list-unstyled">
-                        <li><a href="/#/product/category/audio">Speakers</a></li>
-                        <li><a href="">HeadPhones</a></li>
-                        <li><a href="">Movies</a></li>
-                        <li><a href="">Audio Systems</a></li>
-                        <li><a href="">Multi-room Products</a></li>
-                        <li><a href="">Cables</a></li>
-                        <li><a href="">Musical Instruments</a></li>
-                        <li><a href="">Projectors</a></li>
-                        <li><a href="">Media Accessories</a></li>
-
-                    </ul>
-                </div>
-
-                <h3>Games</h3>
-                <div>
-                    <ul class="list-unstyled">
-                        <li><a href="/#/product/category/game">Table Games</a></li>
-                        <li><a href="/#/product/category/game">Board Games</a></li>
-                        <li><a href="">Game Controllers</a></li>
-                        <li><a href="">Video Games</a></li>
-                        <li><a href="">V-R Products</a></li>
-
-                    </ul>
-                </div>
-
-                <h3>Sports & Outdoors</h3>
-                <div>
-                    <ul class="list-unstyled">
-                        <li><a href="/#/product/category/sport">Shoes & Bags</a></li>
-                        <li><a href="">Indoors</a></li>
-                        <li><a href="">Outdoors</a></li>
-                        <li><a href="">Gyms & Exercises</a></li>
-
-                    </ul>
-                </div>
-
-                <h3>Popular</h3>
-                <div>
-                    View all popular products and recent offers.
-                </div>
+        <div class="col-sm-3" id="category">
+            <div style="color:white;background:#8A3F3C">
+                <h3 class="text-center" style="padding:10px">Categories</h3>
+            </div>
+            <hr>
+            <div>
+                <ul class="list-unstyled">
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/phone">Smart Phones</a></li>
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/mobilecase">Phone Cases</a></li>
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/laptop">Laptops</a></li>
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/desktop">Desktop Computer</a></li>
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/camera">Camera</a></li>
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/audio">Speakers</a></li>
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/game">Games</a></li>
+                    <li><i class="fa fa-caret-right" aria-hidden="true"></i><a href="/#/product/category/sport">Shoes & Bags</a></li>
+                  </ul>
 
             </div> <!--accordion ends here -->
         </div>
@@ -169,6 +213,48 @@
           
         </div>
     </div>
+    <hr id="hr-featured">
+    <!-- Featured brands -->
+<!--     <div class="row" id="featured-brands">
+      <center><p>Featured Brands</p></center>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+          <img src="/images/logo.jpg" class="img img-responsive">
+      </div>
+      <div class="col-sm-1 col-md-1 col-xs-1">
+
+      </div>
+
+    </div> -->
 
 </div>
 
@@ -199,6 +285,22 @@
   </div>
 
 </div>
+<script>
+var slideIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none"; 
+    }
+    slideIndex++;
+    if (slideIndex > x.length) {slideIndex = 1} 
+    x[slideIndex-1].style.display = "block"; 
+    setTimeout(carousel, 4500); 
+}
+</script>
 
 </body>
 </html>

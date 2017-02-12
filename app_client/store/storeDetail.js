@@ -29,7 +29,7 @@ function storeDetailCtrl($scope, $routeParams, $timeout, $window, productData, l
 		});
 
 
-		if (!(localStorage.getItem('longitude') == "undefined")) {
+		if (localStorage.getItem('longitude')) {
 			$scope.geolocation = true;
 		} else {
 			$scope.geolocation = false;
