@@ -3,6 +3,7 @@ angular
 	.controller('categoryCtrl', categoryCtrl);
 
 function categoryCtrl($scope, $routeParams, $timeout, productData, locService) {
+
 	$scope.lon2 = "";
 	$scope.lat2 = "";
 

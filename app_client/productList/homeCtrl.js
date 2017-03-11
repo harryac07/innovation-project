@@ -5,6 +5,7 @@ angular
 
 
 function homeCtrl($scope, $location, $window, $timeout, productData, auth, locService) { // service as parameter
+
 	/*Geolocation*/
 	$scope.lon2 = "";
 	$scope.lat2 = "";
@@ -124,9 +125,9 @@ function homeCtrl($scope, $location, $window, $timeout, productData, auth, locSe
 	};
 
 	/* selectItem-div number display per page  */
-		setTimeout(function() {
-			$('#selectItem').show();
-		}, 1000);
+	setTimeout(function() {
+		$('#selectItem').show();
+	}, 1000);
 
 
 

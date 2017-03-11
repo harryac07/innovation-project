@@ -1,5 +1,7 @@
 $(document).ready(function() {
-
+	window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
 	$('#chat-content').on('mousewheel DOMMouseScroll', function(e) {
 		var e0 = e.originalEvent,
 			delta = e0.wheelDelta || -e0.detail;
@@ -20,14 +22,6 @@ $(document).ready(function() {
 		$(this).tab('show');
 	});
 
-	// $('#accordion ul li').hover(function() {
-	// 	$(this).css('background-color', '#632927');
-	// 	$('.list-unstyled li a').css('color', '#fff');
-	// }, function() {
-	// 	$('.list-unstyled li a').css('background-color', '');
-	// 	$('.list-unstyled li a').css('color', 'black');
-	// });
-
 	$("#chat").click(function() {
 		if (window.localStorage['user-token']) {
 			$('#chat-box').show();
@@ -42,17 +36,18 @@ $(document).ready(function() {
 
 
 
-	/* Socket starts here */
-	var socket = io('https://profinder1.herokuapp.com');
-
 	// check if user log in and only perform chat
 	if (window.localStorage['user-token']) {
+
+		/* Socket starts here */
+		var socket = io();
+
 		var user = JSON.parse(window.atob(window.localStorage['user-token'].split('.')[1])).name;
 		// var room=user+Date.now(); // make unique room using date
 
 		$('#chat-form').submit(function() {
 			if ($('#text').val() != '' || null) {
-				socket.emit('chat message', $('#text').val());
+				socket.emit('chat message', escapeHtml($('#text').val()));
 				$('#text').val('');
 				return false;
 			}
@@ -76,6 +71,23 @@ $(document).ready(function() {
 		socket.on('newclientconnect', function(server, data) {
 			console.log(server, data);
 		});
+
+		/* escape html entities for preventing XXS */
+		function escapeHtml(text) {
+			var map = {
+				'&': '&amp;',
+				'<': '&lt;',
+				'>': '&gt;',
+				'"': '&quot;',
+				"'": '&#039;'
+			};
+
+			return text.replace(/[&<>"']/g, function(m) {
+				return map[m];
+			});
+		}
+
+
 	} else {
 
 	}

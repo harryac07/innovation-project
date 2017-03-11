@@ -3,7 +3,7 @@ angular
 	.controller('productDetailCtrl', productDetailCtrl);
 
 function productDetailCtrl($scope, $routeParams, $window, $timeout, productData, auth, locService) {
-
+	
 	$scope.lon2 = "";
 	$scope.lat2 = "";
 
