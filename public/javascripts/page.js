@@ -9,10 +9,12 @@ $(document).ready(function() {
 		this.scrollTop += (delta < 0 ? 1 : -1) * 25;
 		e.preventDefault();
 	});
+
 	/* scroll to top when page changed */
 	$('#pager-bottom button').click(function() {
 		window.scrollTop(0);
 	});
+	
 	/*jQuery Ui accordion */
 	$("#accordion").accordion({
 		collapsible: true,
@@ -65,11 +67,11 @@ $(document).ready(function() {
 		});
 		/*To broadcast*/
 		socket.on('disconnectMessage', function(data) {
-			console.log(data.description);
+			// console.log(data.description);
 		});
 		/* When new client connects*/
 		socket.on('newclientconnect', function(server, data) {
-			console.log(server, data);
+			// console.log(server, data);
 		});
 
 		/* escape html entities for preventing XXS */

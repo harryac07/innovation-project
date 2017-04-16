@@ -107,7 +107,7 @@ function productDetailCtrl($scope, $routeParams, $window, $timeout, productData,
 					reviewText: formData.reviewText
 				})
 				.success(function(data) {
-					console.log('Add Review success!');
+					// console.log('Add Review success!');
 					$("#reviewModel").modal("hide"); // hide modal after review is sent
 				})
 				.error(function(data) {

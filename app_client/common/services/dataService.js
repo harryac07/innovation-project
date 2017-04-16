@@ -9,12 +9,12 @@ function productData($http, auth) {
 	};
 
 	var productById = function(productid) {
-		console.log('productid: ' + productid);
+		// console.log('productid: ' + productid);
 		return $http.get('/api/product/' + productid);
 	};
 
 	var productByCategory = function(categoryName) {
-		console.log('categoryName : ' + categoryName);
+		// console.log('categoryName : ' + categoryName);
 		return $http.get('/api/product/category/' + categoryName);
 	};
 
